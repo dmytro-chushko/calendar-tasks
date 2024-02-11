@@ -4,7 +4,8 @@ export const enum SUCCESSFUL_RESPONSE {
 }
 
 export const enum ROUTE {
-  BOARD = 'board',
+  TEXT_LABEL = 'text-label',
+  COLOR_LABEL = 'color-label',
   CARD = 'card',
   ALL = 'all',
   ORDER = 'order',
@@ -15,3 +16,5 @@ export const enum ORDER_ACTION {
   INCREMENT = 'increment',
   DECREMENT = 'decrement',
 }
+
+export const COLOR_HEX_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
