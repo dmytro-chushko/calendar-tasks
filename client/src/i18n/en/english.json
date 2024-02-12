@@ -1,0 +1,12 @@
+{
+  "validation": {
+    "maxChar": "not more then {{num}} characters",
+    "required": "it should be filled",
+    "requiredLength": "it must contains {{num}} characters",
+    "boardNotExist": "board not found"
+  },
+  "notification": {
+    "rejected": "Something went wrong",
+    "deleting": "Your {{entity}} successfully deleted"
+  }
+}
