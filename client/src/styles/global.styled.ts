@@ -1,4 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
+import normalize from 'styled-normalize';
 
 export const customScroll = (track: string, thumb: string) => css`
   &::-webkit-scrollbar {
@@ -18,6 +19,7 @@ export const customScroll = (track: string, thumb: string) => css`
 `;
 
 export const GlobalStyle = createGlobalStyle`
+  ${normalize}
   ${css`
     * {
       margin: 0;

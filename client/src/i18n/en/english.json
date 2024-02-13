@@ -8,5 +8,14 @@
   "notification": {
     "rejected": "Something went wrong",
     "deleting": "Your {{entity}} successfully deleted"
-  }
+  },
+  "weekButton": "Week",
+  "monthButton": "Month",
+  "sunday": "Sun",
+  "monday": "Mon",
+  "tuesday": "Tue",
+  "wednesday": "Wed",
+  "thursday": "Thu",
+  "friday": "Fri",
+  "saturday": "Sat"
 }
