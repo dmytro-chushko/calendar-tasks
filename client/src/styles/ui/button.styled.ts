@@ -26,7 +26,7 @@ export const Button = styled.button<IButton>`
 	color: ${({ theme }) => theme.font.color.secondary};
   stroke: currentColor;
   border-radius: ${({ theme }) => theme.common.borderRadius};
-  background-color: ${({ theme }) => theme.color.secondary};
+  background-color: ${({ theme }) => theme.color.button.primary};
 
   &:disabled {
     color: ${({ theme }) => theme.font.color.disabled};
@@ -36,7 +36,7 @@ export const Button = styled.button<IButton>`
   @media (hover: hover) {
     &:hover:not([disabled]) {
       transform: scale(1.3);
-      background-color: ${({ theme }) => theme.color.accent};
+      background-color: ${({ theme }) => theme.color.button.accent};
     }
   }
 

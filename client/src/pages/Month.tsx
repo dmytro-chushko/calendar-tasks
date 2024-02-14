@@ -1,5 +1,7 @@
+import { MonthModule } from 'src/modules/MonthModule';
+
 const Month = () => {
-  return <div>Month</div>;
+  return <MonthModule />;
 };
 
 export default Month;
