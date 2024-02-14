@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { useDayArray } from 'src/hooks';
-import { useMonth } from 'src/hooks/useMonth';
+
+import { useDayArray, useMonth } from 'src/hooks';
+import { useGetCurrentDate } from 'src/redux/hooks';
 import { DayElement, DayGrid } from './MonthModule.styled';
 
 interface IMonthModuleProps {}
 
 export const MonthModule: FC<IMonthModuleProps> = ({}) => {
-  const date = new Date();
+  const date = useGetCurrentDate();
   const dayArray = useDayArray(date);
   const { monthName, isTheFirstOrLastDay, getShortMonthName } = useMonth();
   const currentMonth = date.getMonth();
@@ -16,7 +17,10 @@ export const MonthModule: FC<IMonthModuleProps> = ({}) => {
   return (
     <DayGrid>
       {dayArray.map(date => (
-        <DayElement $isActive={date.getMonth() === currentMonth}>
+        <DayElement
+          key={date.getTime()}
+          $isActive={date.getMonth() === currentMonth}
+        >
           {isTheFirstOrLastDay(date)
             ? `${getShortMonthName(
                 monthName[date.getMonth()],

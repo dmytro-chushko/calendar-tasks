@@ -2,19 +2,12 @@ import { FC, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { ReactComponent as LeftChevron } from 'src/assets/chevron-left.svg';
-import { ReactComponent as RightChevron } from 'src/assets/chevron-right.svg';
 import { Loader } from 'src/components';
 import { AppRoute } from 'src/utils/consts';
+import { MonthOrWeekSwitcher } from './components/MonthOrWeekSwithcer';
 
-import { Button } from 'src/styles/ui/button.styled';
-import { Container } from 'src/styles/ui/container.styled';
-import {
-  ButtonWrapper,
-  CommonWrapper,
-  HeaderContainer,
-  LinkButton,
-} from './Header.styled';
+import { ButtonWrapper, Container } from 'src/styles/ui/container.styled';
+import { CommonWrapper, HeaderContainer, LinkButton } from './Header.styled';
 
 interface IHeaderProps {}
 
@@ -31,14 +24,7 @@ export const Header: FC<IHeaderProps> = ({}) => {
     <Container>
       <HeaderContainer>
         <CommonWrapper>
-          <ButtonWrapper>
-            <Button type="button" $height="2rem" $width="2rem">
-              <LeftChevron />
-            </Button>
-            <Button type="button" $height="2rem" $width="2rem">
-              <RightChevron />
-            </Button>
-          </ButtonWrapper>
+          <MonthOrWeekSwitcher />
           <ButtonWrapper>
             <LinkButton
               type="button"

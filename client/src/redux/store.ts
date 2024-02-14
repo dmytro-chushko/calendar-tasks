@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { currentDate } from './reducers/current-date';
+import { date } from './reducers/current-date';
 import { loaderStatus } from './reducers/is-loading.reducer';
 
 export const store = configureStore({
   reducer: {
     loaderStatus: loaderStatus.reducer,
-    currentDate: currentDate.reducer,
+    date: date.reducer,
   },
 });
 

@@ -5,17 +5,19 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'eslint-config-prettier',
+    'plugin:prettier/recommended',
+    'prettier',
+    '@stylistic',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'eslint-plugin-prettier'],
+  plugins: ['react-refresh', '@stylistic'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
-    'padding-line-between-statements': [
+    '@stylistic/padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },
       { blankLine: 'always', prev: 'if', next: '*' },

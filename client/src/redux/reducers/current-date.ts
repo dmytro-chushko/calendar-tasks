@@ -7,16 +7,17 @@ const initialState: { currentDate: Date } = {
   currentDate: new Date(),
 };
 
-export const currentDate = createSlice({
+export const date = createSlice({
   name: ReducerPath.CURRENT_MONTH,
   initialState,
   reducers: {
-    setcurrentDate(state, action: PayloadAction<Date>) {
-      state.currentDate = action.payload;
+    setCurrentMonth(state, action: PayloadAction<number>) {
+      const year = state.currentDate.getFullYear();
+
+      state.currentDate = new Date(year, action.payload);
     },
   },
 });
 
-export const { setcurrentDate } = currentDate.actions;
-export const getcurrentDate = (state: RootState) =>
-  state.currentDate.currentDate;
+export const { setCurrentMonth } = date.actions;
+export const getCurrentDate = (state: RootState) => state.date.currentDate;

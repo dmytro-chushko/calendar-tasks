@@ -14,11 +14,6 @@ export const CommonWrapper = styled.div`
   padding: ${({ theme }) => theme.size.general.xs};
 `;
 
-export const ButtonWrapper = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.size.general.xs};
-`;
-
 export const LinkButton = styled(Button)`
   &:disabled {
     color: ${({ theme }) => theme.font.color.accent};
