@@ -7,20 +7,14 @@ import { DayElement, DayGrid } from './MonthModule.styled';
 interface IMonthModuleProps {}
 
 export const MonthModule: FC<IMonthModuleProps> = ({}) => {
-  const date = useGetCurrentDate();
-  const dayArray = useDayArray(date);
+  const { year, month } = useGetCurrentDate();
+  const dayArray = useDayArray(new Date(year, month));
   const { monthName, isTheFirstOrLastDay, getShortMonthName } = useMonth();
-  const currentMonth = date.getMonth();
-
-  console.log(dayArray);
 
   return (
     <DayGrid>
       {dayArray.map(date => (
-        <DayElement
-          key={date.getTime()}
-          $isActive={date.getMonth() === currentMonth}
-        >
+        <DayElement key={date.getTime()} $isActive={date.getMonth() === month}>
           {isTheFirstOrLastDay(date)
             ? `${getShortMonthName(
                 monthName[date.getMonth()],

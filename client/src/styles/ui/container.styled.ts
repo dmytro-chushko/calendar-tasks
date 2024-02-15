@@ -9,3 +9,8 @@ export const ButtonWrapper = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.size.general.xs};
 `;
+
+export const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+`;

@@ -1,7 +1,11 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import type { RootState, AppDispatch } from './store';
-import { getCurrentDate, setCurrentMonth } from './reducers/current-date';
+import {
+  getCurrentDate,
+  setCurrentMonth,
+  setCurrentWeek,
+} from './reducers/current-date';
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 
@@ -13,4 +17,10 @@ export const useSetCurrentDate = () => {
   const dispatch = useAppDispatch();
 
   return (month: number) => dispatch(setCurrentMonth(month));
+};
+
+export const useSetCurrentWeek = () => {
+  const dispatch = useAppDispatch();
+
+  return (date: number) => dispatch(setCurrentWeek(date));
 };

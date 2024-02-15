@@ -1,5 +1,7 @@
+import { WeekModule } from 'src/modules/WeekModule';
+
 const Week = () => {
-  return <div>Week</div>;
+  return <WeekModule />;
 };
 
 export default Week;

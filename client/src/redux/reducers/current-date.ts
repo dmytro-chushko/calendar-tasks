@@ -3,8 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/redux/store';
 import { ReducerPath } from 'src/utils/consts';
 
-const initialState: { currentDate: Date } = {
-  currentDate: new Date(),
+const initialState: { year: number; month: number; date: number } = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth(),
+  date: new Date().getDate(),
 };
 
 export const date = createSlice({
@@ -12,12 +14,19 @@ export const date = createSlice({
   initialState,
   reducers: {
     setCurrentMonth(state, action: PayloadAction<number>) {
-      const year = state.currentDate.getFullYear();
-
-      state.currentDate = new Date(year, action.payload);
+      const date = new Date(state.year, action.payload);
+      state.month = date.getMonth();
+      state.year = date.getFullYear();
+      state.date = 1;
+    },
+    setCurrentWeek(state, action: PayloadAction<number>) {
+      const date = new Date(state.year, state.month, action.payload);
+      state.month = date.getMonth();
+      state.year = date.getFullYear();
+      state.date = date.getDate();
     },
   },
 });
 
-export const { setCurrentMonth } = date.actions;
-export const getCurrentDate = (state: RootState) => state.date.currentDate;
+export const { setCurrentMonth, setCurrentWeek } = date.actions;
+export const getCurrentDate = (state: RootState) => state.date;

@@ -4,7 +4,9 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Loader } from 'src/components';
 import { AppRoute } from 'src/utils/consts';
+import { CurrentDateLabel } from './components/CurrentDateLabel';
 import { MonthOrWeekSwitcher } from './components/MonthOrWeekSwithcer';
+import { WeekDays } from './components/WeekDays';
 
 import { ButtonWrapper, Container } from 'src/styles/ui/container.styled';
 import { CommonWrapper, HeaderContainer, LinkButton } from './Header.styled';
@@ -25,6 +27,7 @@ export const Header: FC<IHeaderProps> = ({}) => {
       <HeaderContainer>
         <CommonWrapper>
           <MonthOrWeekSwitcher />
+          <CurrentDateLabel />
           <ButtonWrapper>
             <LinkButton
               type="button"
@@ -46,6 +49,7 @@ export const Header: FC<IHeaderProps> = ({}) => {
             </LinkButton>
           </ButtonWrapper>
         </CommonWrapper>
+        <WeekDays />
       </HeaderContainer>
       <Suspense fallback={<Loader isShown />}>
         <Outlet />

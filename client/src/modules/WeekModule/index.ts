@@ -1,0 +1,1 @@
+export { WeekModule } from './WeekModule';
