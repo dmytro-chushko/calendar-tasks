@@ -4,6 +4,7 @@ interface IUseMonth {
   monthName: string[];
   isTheFirstOrLastDay: (date: Date) => boolean;
   getShortMonthName: (month: string) => string;
+  formatFirstOrLastMonthDate: (date: Date) => string;
 }
 
 const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -47,9 +48,16 @@ export const useMonth = (): IUseMonth => {
   const getShortMonthName = (month: string) =>
     month.split('').slice(0, 3).join('');
 
+  const formatFirstOrLastMonthDate = (date: Date): string => {
+    return isTheFirstOrLastDay(date)
+      ? `${getShortMonthName(monthName[date.getMonth()])} ${date.getDate()}`
+      : `${date.getDate()}`;
+  };
+
   return {
     monthName,
     isTheFirstOrLastDay,
     getShortMonthName,
+    formatFirstOrLastMonthDate,
   };
 };

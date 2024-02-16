@@ -1,27 +1,28 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 
-import { useDayArray, useMonth } from 'src/hooks';
+import { useDayArray } from 'src/hooks';
+import { useElementHeight } from 'src/hooks/useElementHeight.hook';
 import { useGetCurrentDate } from 'src/redux/hooks';
-import { DayElement, DayGrid } from './MonthModule.styled';
+import { MonthDay } from './components/MonthDay';
+
+import { FullHeightContainer } from 'src/styles/ui/container.styled';
+import { DayGrid } from './MonthModule.styled';
 
 interface IMonthModuleProps {}
 
 export const MonthModule: FC<IMonthModuleProps> = ({}) => {
   const { year, month } = useGetCurrentDate();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const containerHeight = useElementHeight(containerRef);
   const dayArray = useDayArray(new Date(year, month));
-  const { monthName, isTheFirstOrLastDay, getShortMonthName } = useMonth();
 
   return (
-    <DayGrid>
-      {dayArray.map(date => (
-        <DayElement key={date.getTime()} $isActive={date.getMonth() === month}>
-          {isTheFirstOrLastDay(date)
-            ? `${getShortMonthName(
-                monthName[date.getMonth()],
-              )} ${date.getDate()}`
-            : date.getDate()}
-        </DayElement>
-      ))}
-    </DayGrid>
+    <FullHeightContainer ref={containerRef} $setHeight={`${containerHeight}px`}>
+      <DayGrid>
+        {dayArray.map(date => (
+          <MonthDay key={date.getTime()} date={date} />
+        ))}
+      </DayGrid>
+    </FullHeightContainer>
   );
 };

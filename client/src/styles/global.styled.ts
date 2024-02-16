@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
-import normalize from 'styled-normalize';
+import { normalize } from 'styled-normalize';
 
 export const customScroll = (track: string, thumb: string) => css`
   &::-webkit-scrollbar {
@@ -17,10 +17,10 @@ export const customScroll = (track: string, thumb: string) => css`
     border: ${thumb} solid ${({ theme }) => theme.color.secondary};
   }
 `;
-
+console.log(normalize);
 export const GlobalStyle = createGlobalStyle`
-  ${normalize}
   ${css`
+    ${normalize}
     * {
       margin: 0;
       padding: 0;
@@ -30,15 +30,25 @@ export const GlobalStyle = createGlobalStyle`
     body {
       margin: 0;
 
-      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+      font-family:
+        'Roboto',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-size: ${({ theme }) => theme.font.size.regular};
 
       color: ${({ theme }) => theme.font.color.primary};
       background-color: ${({ theme }) => theme.color.primary};
+      overflow-x: hidden;
     }
 
     a {

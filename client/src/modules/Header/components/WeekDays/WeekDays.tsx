@@ -4,10 +4,10 @@ import { useWeekDay } from 'src/hooks';
 import { DayLabel, WeekGrid } from './WeekDays.styled';
 
 export const WeekDays: FC = () => {
-  const days = useWeekDay();
+  const { dayName } = useWeekDay();
   return (
     <WeekGrid>
-      {days.map(day => (
+      {dayName.map(day => (
         <div key={day}>
           <DayLabel>{day}</DayLabel>
         </div>

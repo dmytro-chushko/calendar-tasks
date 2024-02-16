@@ -1,3 +1,3 @@
-export { useDayArray } from './useDayArray';
-export { useMonth } from './useMonth';
-export { useWeekDay } from './useWeekDay';
+export { useDayArray } from './useDayArray.hook';
+export { useMonth } from './useMonth.hook';
+export { useWeekDay } from './useWeekDay.hook';
