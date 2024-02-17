@@ -7,6 +7,7 @@ export const enum ReducerPath {
   IS_LOADING = 'loader-status',
   CURRENT_MONTH = 'current-month',
   HOLIDAY_API = 'holiday-api',
+  TASK_API = 'task-api',
 }
 
 export const enum HolidayApi {
@@ -15,3 +16,7 @@ export const enum HolidayApi {
 }
 
 export const CURRENT_COUNTRY = 'UA';
+
+export const enum QueryUrl {
+  TASK = 'task',
+}
