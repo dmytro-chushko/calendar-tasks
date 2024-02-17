@@ -9,14 +9,14 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ROUTE } from 'src/utils/consts';
+import { ApiName, AppRoute } from 'src/utils/consts';
 import { CreateTextLabelDto } from './dto/create-text-label.dto';
 import { UpdateTextLabelDto } from './dto/update-text-label.dto';
 import { TextLabel } from './entities/text-label.entity';
 import { TextLabelService } from './text-label.service';
 
-@ApiTags('Text label')
-@Controller(ROUTE.TEXT_LABEL)
+@ApiTags(ApiName.TEXT_LABEL)
+@Controller(AppRoute.TEXT_LABEL)
 export class TextLabelController {
   constructor(private readonly textLabelService: TextLabelService) {}
 
@@ -36,7 +36,7 @@ export class TextLabelController {
 
   @ApiOperation({ summary: 'Get text label by id' })
   @ApiResponse({ status: 200, type: TextLabel })
-  @Get(ROUTE.PARAM_ID)
+  @Get(AppRoute.PARAM_ID)
   findOne(@Param('id') id: string) {
     return this.textLabelService.findOne(id);
   }
@@ -46,7 +46,7 @@ export class TextLabelController {
     status: 200,
     type: TextLabel,
   })
-  @Patch(ROUTE.PARAM_ID)
+  @Patch(AppRoute.PARAM_ID)
   update(
     @Param('id') id: string,
     @Body() updateTextLabelDto: UpdateTextLabelDto,
@@ -59,7 +59,7 @@ export class TextLabelController {
     status: 200,
     type: TextLabel,
   })
-  @Delete(ROUTE.PARAM_ID)
+  @Delete(AppRoute.PARAM_ID)
   remove(@Param('id') id: string) {
     return this.textLabelService.remove(id);
   }

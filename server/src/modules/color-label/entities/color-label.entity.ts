@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Task } from 'src/modules/task/entities/task.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,4 +30,7 @@ export class ColorLabel {
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
+
+  @ManyToMany(() => Task, task => task.colorLabels)
+  tasks: Task[];
 }

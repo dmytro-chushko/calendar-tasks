@@ -4,9 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TextLabel } from './entities/text-label.entity';
 import { TextLabelController } from './text-label.controller';
 import { TextLabelService } from './text-label.service';
+import { Task } from '../task/entities/task.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TextLabel])],
+  imports: [TypeOrmModule.forFeature([TextLabel, Task])],
   controllers: [TextLabelController],
   providers: [TextLabelService],
 })

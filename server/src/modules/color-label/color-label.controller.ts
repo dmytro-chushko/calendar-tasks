@@ -9,14 +9,14 @@ import {
 } from '@nestjs/common';
 
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ROUTE } from 'src/utils/consts';
+import { ApiName, AppRoute } from 'src/utils/consts';
 import { ColorLabelService } from './color-label.service';
 import { CreateColorLabelDto } from './dto/create-color-label.dto';
 import { UpdateColorLabelDto } from './dto/update-color-label.dto';
 import { ColorLabel } from './entities/color-label.entity';
 
-@ApiTags('Color label')
-@Controller(ROUTE.COLOR_LABEL)
+@ApiTags(ApiName.COLOR_LABEL)
+@Controller(AppRoute.COLOR_LABEL)
 export class ColorLabelController {
   constructor(private readonly colorLabelService: ColorLabelService) {}
 
@@ -36,7 +36,7 @@ export class ColorLabelController {
 
   @ApiOperation({ summary: 'Get color label by id' })
   @ApiResponse({ status: 200, type: ColorLabel })
-  @Get(ROUTE.PARAM_ID)
+  @Get(AppRoute.PARAM_ID)
   findOne(@Param('id') id: string) {
     return this.colorLabelService.findOne(id);
   }
@@ -46,7 +46,7 @@ export class ColorLabelController {
     status: 200,
     type: ColorLabel,
   })
-  @Patch(ROUTE.PARAM_ID)
+  @Patch(AppRoute.PARAM_ID)
   update(
     @Param('id') id: string,
     @Body() updateColorLabelDto: UpdateColorLabelDto,
@@ -59,7 +59,7 @@ export class ColorLabelController {
     status: 200,
     type: ColorLabel,
   })
-  @Delete(ROUTE.PARAM_ID)
+  @Delete(AppRoute.PARAM_ID)
   remove(@Param('id') id: string) {
     return this.colorLabelService.remove(id);
   }
