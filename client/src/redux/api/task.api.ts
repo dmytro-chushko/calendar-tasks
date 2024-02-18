@@ -6,7 +6,7 @@ import { baseQuery } from '../base-query';
 
 export const taskApi = createApi({
   reducerPath: ReducerPath.TASK_API,
-  baseQuery: baseQuery(import.meta.env.BASE_URL, QueryUrl.TASK),
+  baseQuery: baseQuery(import.meta.env.VITE_BASE_URL, QueryUrl.TASK),
   tagTypes: ['Task'],
   endpoints: builder => ({
     getAllTasks: builder.query<ITask[], void>({

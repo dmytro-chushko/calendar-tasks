@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 export const errorHandler: Middleware = () => next => action => {
   if (isRejectedWithValue(action)) {
+    console.log(action.error);
     if (
       typeof action === 'object' &&
       'payload' in action &&

@@ -35,7 +35,7 @@ export const Button = styled.button<IButton>`
 
   @media (hover: hover) {
     &:hover:not([disabled]) {
-      transform: scale(1.3);
+      transform: scale(1.2);
       background-color: ${({ theme }) => theme.color.button.accent};
     }
   }

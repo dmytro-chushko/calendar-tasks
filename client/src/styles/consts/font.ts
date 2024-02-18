@@ -11,6 +11,7 @@ export const font = {
     accent: '#F2EA86',
     error: '#EF4444',
     disabled: '#6B7280',
+    task: '#374151',
   },
   weight: {
     regular: '400',
