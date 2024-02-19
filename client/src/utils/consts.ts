@@ -20,3 +20,11 @@ export const CURRENT_COUNTRY = 'UA';
 export const enum QueryUrl {
   TASK = 'task',
 }
+
+export const enum MaxChar {
+  DESCRIPTION = 10,
+}
+
+export const enum DebounceTime {
+  DESCRIPTION = 500,
+}
