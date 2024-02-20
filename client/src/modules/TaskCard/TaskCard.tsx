@@ -3,16 +3,22 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ReactComponent as Edit } from 'src/assets/edit.svg';
+import { ReactComponent as Palette } from 'src/assets/palette.svg';
+import { ReactComponent as Tletter } from 'src/assets/t-letter.svg';
 import { ReactComponent as Trash } from 'src/assets/trash.svg';
+import { useDebounce, useLoader } from 'src/hooks';
 import { useOuterClick } from 'src/hooks/useOuterClick.hook';
+import {
+  useRemoveTaskMutation,
+  useUpdateTaskMutation,
+} from 'src/redux/api/task.api';
 import { ITask, IUpdateTaskForm } from 'src/types';
-import { useUpdateTaskSchema } from 'src/utils/validation/useUpdateTask.schema';
-
-import { useDebounce } from 'src/hooks';
-import { useUpdateTaskMutation } from 'src/redux/api/task.api';
-import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
 import { DebounceTime, MaxChar } from 'src/utils/consts';
 import { modifyString } from 'src/utils/helpers';
+import { useUpdateTaskSchema } from 'src/utils/validation/useUpdateTask.schema';
+
+import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
+
 import {
   ButtonContainer,
   DescriptionContainer,
@@ -29,6 +35,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [updateTask] = useUpdateTaskMutation();
+  const [removeTask, { isLoading }] = useRemoveTaskMutation();
   const schema = useUpdateTaskSchema();
   const { id, description } = task;
   const modifiedDescription = modifyString(description, MaxChar.DESCRIPTION);
@@ -47,13 +54,33 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     DebounceTime.DESCRIPTION,
   );
 
-  const handleEditButtonClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    e.stopPropagation();
-    setIsEdit(!isEdit);
-    reset();
-  };
+  const buttons = [
+    {
+      id: 'text-label-button',
+      icon: <Tletter width="10" height="10" />,
+      handler: () => console.log('text-label'),
+    },
+    {
+      id: 'color-label-button',
+      icon: <Palette width="16" height="16" />,
+      handler: () => console.log('color-label'),
+    },
+    {
+      id: 'edit-button',
+      icon: <Edit width="16" height="16" />,
+      handler: () => {
+        setIsEdit(!isEdit);
+        reset();
+      },
+    },
+    {
+      id: 'remove-button',
+      icon: <Trash width="16" height="16" />,
+      handler: async () => {
+        await removeTask(id);
+      },
+    },
+  ];
 
   const handleOuterClick = () => {
     setIsEdit(false);
@@ -65,6 +92,8 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   };
 
   useOuterClick<HTMLDivElement>(containerRef, handleOuterClick);
+
+  useLoader(isLoading);
 
   useEffect(() => {
     setFocus('description');
@@ -95,20 +124,21 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
         ) : (
           <TaskDescription>{modifiedDescription}</TaskDescription>
         )}
+
+        <ButtonContainer>
+          {buttons.map(({ id, icon, handler }) => (
+            <TaskButton
+              key={id}
+              type="button"
+              $width="1.2rem"
+              $height="1.2rem"
+              onClick={handler}
+            >
+              {icon}
+            </TaskButton>
+          ))}
+        </ButtonContainer>
       </DescriptionContainer>
-      <ButtonContainer>
-        <TaskButton
-          type="button"
-          $width="1.2rem"
-          $height="1.2rem"
-          onClick={handleEditButtonClick}
-        >
-          <Edit width="16" height="16" />
-        </TaskButton>
-        <TaskButton type="button" $width="1.2rem" $height="1.2rem">
-          <Trash width="16" height="16" />
-        </TaskButton>
-      </ButtonContainer>
     </TaskContainer>
   );
 };

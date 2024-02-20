@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as Plus } from 'src/assets/plus.svg';
-import { Holidays, TaskCard } from 'src/components';
+import { Holidays } from 'src/components';
 import { useMonth } from 'src/hooks';
 import { useLoader } from 'src/hooks/useLoader.hook';
 import { useGetCurrentDate } from 'src/redux/hooks';
@@ -18,12 +19,14 @@ import {
   DayLabelWrapper,
   TasksAmountLabel,
 } from './MonthDay.styled';
+import { TaskCard } from 'src/modules';
 
 interface IMonthDayProps {
   date: Date;
 }
 
 export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
+  const { t } = useTranslation();
   const { month } = useGetCurrentDate();
   const { formatFirstOrLastMonthDate } = useMonth();
   const { data: tasks, isLoading: isTasksFetching } = useGetAllTasksQuery();
@@ -55,7 +58,7 @@ export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
       <Holidays date={date} />
       {tasksAmount > 0 && (
         <>
-          <TasksAmountLabel>{`${tasksAmount} ${tasksAmount > 1 ? 'tasks' : 'task'}`}</TasksAmountLabel>
+          <TasksAmountLabel>{`${tasksAmount} ${tasksAmount > 1 ? t('tasks') : t('task')}`}</TasksAmountLabel>
           <TaskCard task={filteredTasks[0]} />
         </>
       )}

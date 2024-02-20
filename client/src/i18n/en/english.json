@@ -9,6 +9,8 @@
     "rejected": "Something went wrong",
     "deleting": "Your {{entity}} successfully deleted"
   },
+  "task": "task",
+  "tasks": "tasks",
   "weekButton": "Week",
   "monthButton": "Month",
   "sunday": "Sun",

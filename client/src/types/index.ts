@@ -5,3 +5,4 @@ export type * from './ITask';
 export type * from './IUpdateTask';
 export type * from './IPayloadError';
 export type * from './IUpdateTaskForm';
+export type * from './SetState';

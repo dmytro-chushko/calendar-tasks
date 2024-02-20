@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 export const ButtonContainer = styled(FlexBox)`
   position: absolute;
-  top: ${({ theme }) => theme.size.general.xs};
-  right: ${({ theme }) => theme.size.general.xs};
+  top: ${({ theme }) => theme.size.general.xxs};
+  right: ${({ theme }) => theme.size.general.xxs};
 
   gap: ${({ theme }) => theme.size.general.xxs};
 

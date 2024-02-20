@@ -28,3 +28,8 @@ export const enum MaxChar {
 export const enum DebounceTime {
   DESCRIPTION = 500,
 }
+
+export const enum TextLabelMode {
+  CONFIG = 'configuring',
+  ASSIGN = 'assigning',
+}

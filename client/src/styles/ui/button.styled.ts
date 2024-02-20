@@ -25,6 +25,7 @@ export const Button = styled.button<IButton>`
 
 	color: ${({ theme }) => theme.font.color.secondary};
   stroke: currentColor;
+  fill: currentColor;
   border-radius: ${({ theme }) => theme.common.borderRadius};
   background-color: ${({ theme }) => theme.color.button.primary};
 
