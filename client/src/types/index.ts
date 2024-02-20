@@ -1,8 +1,11 @@
 export type * from './ICreateTask';
 export type * from './IHoliday';
 export type * from './IHolidaysQuery';
-export type * from './ITask';
-export type * from './IUpdateTask';
 export type * from './IPayloadError';
+export type * from './ITask';
+export type * from './ITextLabel';
+export type * from './IUpdateTask';
 export type * from './IUpdateTaskForm';
 export type * from './SetState';
+export type * from './ICreateTextLabel';
+export type * from './IUpdateTextLabel';

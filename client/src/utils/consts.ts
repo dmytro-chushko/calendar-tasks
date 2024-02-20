@@ -8,6 +8,7 @@ export const enum ReducerPath {
   CURRENT_MONTH = 'current-month',
   HOLIDAY_API = 'holiday-api',
   TASK_API = 'task-api',
+  TEXT_LABEL_API = 'text-label-api',
 }
 
 export const enum HolidayApi {
@@ -19,6 +20,7 @@ export const CURRENT_COUNTRY = 'UA';
 
 export const enum QueryUrl {
   TASK = 'task',
+  TEXT_LABEL = 'text-label',
 }
 
 export const enum MaxChar {

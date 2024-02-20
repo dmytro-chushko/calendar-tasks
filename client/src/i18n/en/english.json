@@ -9,8 +9,13 @@
     "rejected": "Something went wrong",
     "deleting": "Your {{entity}} successfully deleted"
   },
+  "placeholder": {
+    "textLabelInput": "Input text label"
+  },
   "task": "task",
   "tasks": "tasks",
+  "textLabelConfigButton": "Configure text label",
+
   "weekButton": "Week",
   "monthButton": "Month",
   "sunday": "Sun",

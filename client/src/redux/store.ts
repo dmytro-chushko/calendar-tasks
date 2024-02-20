@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { holidayApi } from './api/holiday.api';
+import { taskApi } from './api/task.api';
+import { textLabelApi } from './api/textLabel.api';
+import { errorHandler } from './middlewares/erorr-handler.middleware';
 import { date } from './reducers/current-date.reducer';
 import { loaderStatus } from './reducers/is-loading.reducer';
-import { holidayApi } from './api/holiday.api';
-import { errorHandler } from './middlewares/erorr-handler.middleware';
-import { taskApi } from './api/task.api';
 
 export const store = configureStore({
   reducer: {
@@ -12,11 +13,13 @@ export const store = configureStore({
     date: date.reducer,
     [holidayApi.reducerPath]: holidayApi.reducer,
     [taskApi.reducerPath]: taskApi.reducer,
+    [textLabelApi.reducerPath]: textLabelApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
       .concat(holidayApi.middleware)
       .concat(taskApi.middleware)
+      .concat(textLabelApi.middleware)
       .concat(errorHandler),
 });
 

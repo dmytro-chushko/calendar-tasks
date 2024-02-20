@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as Config } from 'src/assets/config.svg';
 import { SetState } from 'src/types';
@@ -13,6 +14,8 @@ interface IConfigTextLabelButtonProps {
 export const ConfigTextLabelButton: FC<IConfigTextLabelButtonProps> = ({
   onClick,
 }) => {
+  const { t } = useTranslation();
+
   const handleClick = () => onClick(state => !state);
 
   return (
@@ -24,7 +27,7 @@ export const ConfigTextLabelButton: FC<IConfigTextLabelButtonProps> = ({
       onClick={handleClick}
     >
       <Config width="16" height="16" />
-      <span>Configure text label</span>
+      <span>{t('textLabelConfigButton')}</span>
     </Button>
   );
 };

@@ -1,5 +1,17 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { TextLabelInput } from './TextLabelConfig.styled';
 
 export const TextLabelConfig: FC = () => {
-  return <div>TextLabelConfig</div>;
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <TextLabelInput
+        type="text"
+        placeholder={t('placeholder.textLabelInput')}
+      />
+    </>
+  );
 };
