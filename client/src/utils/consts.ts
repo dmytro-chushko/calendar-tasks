@@ -21,6 +21,8 @@ export const CURRENT_COUNTRY = 'UA';
 export const enum QueryUrl {
   TASK = 'task',
   TEXT_LABEL = 'text-label',
+  ASSIGN_TEXT_LABEL = 'assign-text-label',
+  UNASSIGN_TEXT_LABEL = 'unassign-text-label',
 }
 
 export const enum MaxChar {

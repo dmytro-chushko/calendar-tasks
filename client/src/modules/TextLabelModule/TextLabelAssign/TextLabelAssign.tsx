@@ -22,7 +22,8 @@ export const TextLabelAssign: FC<ITextLabelAssignProps> = ({ task }) => {
         textLabels.map(({ id, text }) => (
           <TextLabelAssignItem
             key={id}
-            id={task.id}
+            taskId={task.id}
+            labelId={id}
             textLabel={text}
             assigned={checkAssigning(text)}
           />
