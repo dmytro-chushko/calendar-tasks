@@ -22,3 +22,8 @@ export interface I$FHContainer {
 export const FullHeightContainer = styled.div<I$FHContainer>`
   height: ${({ $setHeight }) => ($setHeight ? $setHeight : '100svh')};
 `;
+
+export const StyledList = styled(FlexBox)`
+  flex-direction: column;
+  gap: ${({ theme }) => theme.size.general.xs};
+`;

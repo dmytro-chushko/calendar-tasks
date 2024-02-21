@@ -6,7 +6,7 @@ import { size } from 'src/styles/consts';
 import { TextLabelConfigItem } from './components/TextLabelConfigItem';
 import { TextLabelCreator } from './components/TextLabelCreator';
 
-import { TextLabelList } from './TextLabelConfig.styled';
+import { StyledList } from 'src/styles/ui/container.styled';
 
 export const TextLabelConfig: FC = () => {
   const { data: textLabels, isLoading } = useGetAllTextLabelsQuery();
@@ -18,13 +18,13 @@ export const TextLabelConfig: FC = () => {
       <div style={{ marginBottom: size.general.xs }}>
         <TextLabelCreator />
       </div>
-      <TextLabelList as="ul">
+      <StyledList as="ul">
         {textLabels &&
           textLabels.length > 0 &&
           textLabels.map(textLabel => (
             <TextLabelConfigItem key={textLabel.id} textLabel={textLabel} />
           ))}
-      </TextLabelList>
+      </StyledList>
     </>
   );
 };

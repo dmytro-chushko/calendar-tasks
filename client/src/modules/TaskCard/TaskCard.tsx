@@ -19,6 +19,8 @@ import { useUpdateTaskSchema } from 'src/utils/validation/useUpdateTask.schema';
 
 import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
 
+import { TextLabelModule } from '..';
+import { TextLabelAssign } from '../TextLabelModule/TextLabelAssign';
 import {
   ButtonContainer,
   DescriptionContainer,
@@ -33,6 +35,8 @@ interface ITaskCardProps {
 
 export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isTextLabelModalOpen, setIsTextLabelModalOpen] =
+    useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [updateTask] = useUpdateTaskMutation();
   const [removeTask, { isLoading }] = useRemoveTaskMutation();
@@ -58,7 +62,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     {
       id: 'text-label-button',
       icon: <Tletter width="10" height="10" />,
-      handler: () => console.log('text-label'),
+      handler: () => setIsTextLabelModalOpen(true),
     },
     {
       id: 'color-label-button',
@@ -81,6 +85,8 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
       },
     },
   ];
+
+  const handleModalClose = () => setIsTextLabelModalOpen(false);
 
   const handleOuterClick = () => {
     setIsEdit(false);
@@ -139,6 +145,9 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           ))}
         </ButtonContainer>
       </DescriptionContainer>
+      <TextLabelModule isOpen={isTextLabelModalOpen} onClose={handleModalClose}>
+        <TextLabelAssign task={task} />
+      </TextLabelModule>
     </TaskContainer>
   );
 };
