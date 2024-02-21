@@ -36,7 +36,7 @@ export class Task {
 
   @ApiProperty({
     description: 'Date assigned to the task',
-    example: 'Sun Feb 01 1998 00:00:00 GMT+0000 (GMT)',
+    example: '2024-02-15',
   })
   @Column({ type: 'date' })
   assignedDate: string;

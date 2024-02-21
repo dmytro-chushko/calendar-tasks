@@ -6,6 +6,8 @@ export const enum AppRoute {
   ALL = 'all',
   ORDER = 'order',
   PARAM_ID = '/:id',
+  ASSNG_TEXT_LABEL = 'assign-text-label',
+  UNASSIGN_TEXT_LABEL = 'unassign-text-label',
 }
 
 export const enum ApiName {

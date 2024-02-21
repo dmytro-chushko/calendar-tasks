@@ -8,29 +8,39 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+
+import { ApiName, AppRoute } from 'src/utils/consts';
+import { AssignTextLabelDto } from './dto/assign-text-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from './entities/task.entity';
 import { TaskService } from './task.service';
-import { ApiName, AppRoute } from 'src/utils/consts';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags(ApiName.TASK)
 @Controller(AppRoute.TASK)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
+  @ApiOperation({ summary: 'Create new task' })
+  @ApiResponse({ status: 201, type: Task })
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
+  create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.taskService.create(createTaskDto);
   }
 
+  @ApiOperation({ summary: 'Get all tasks by date' })
+  @ApiResponse({ status: 200, type: [Task] })
+  @ApiQuery({ example: '?date=2024-02-15' })
   @Get(AppRoute.BY_DATE)
-  findOneByDate(@Query('date') date: string) {
-    return this.taskService.findOneByDate(date);
+  findAllByDate(@Query('date') date: string): Promise<Task[]> {
+    return this.taskService.findAllByDate(date);
   }
 
+  @ApiOperation({ summary: 'Get all tasks' })
+  @ApiResponse({ status: 200, type: [Task] })
   @Get()
-  findAll() {
+  findAll(): Promise<Task[]> {
     return this.taskService.findAll();
   }
 
@@ -39,13 +49,37 @@ export class TaskController {
   //   return this.taskService.findOne(+id);
   // }
 
+  @ApiOperation({ summary: 'Update task data' })
+  @ApiResponse({ status: 200, type: Task })
   @Patch(AppRoute.PARAM_ID)
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ): Promise<Task> {
     return this.taskService.update(id, updateTaskDto);
   }
 
+  @ApiOperation({ summary: 'Remove task' })
+  @ApiResponse({
+    status: 200,
+    type: Task,
+  })
   @Delete(AppRoute.PARAM_ID)
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<Task> {
     return this.taskService.remove(id);
+  }
+
+  @ApiOperation({ summary: 'Assign text label' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.ASSNG_TEXT_LABEL)
+  assignTextLabel(@Body() dto: AssignTextLabelDto): Promise<Task> {
+    return this.taskService.assignTextTask(dto);
+  }
+
+  @ApiOperation({ summary: 'Unassign text label' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.UNASSIGN_TEXT_LABEL)
+  unAssignTextLabel(@Body() dto: AssignTextLabelDto): Promise<Task> {
+    return this.taskService.unassignTextTask(dto);
   }
 }

@@ -6,9 +6,13 @@ import { TextLabel } from '../text-label/entities/text-label.entity';
 import { Task } from './entities/task.entity';
 import { TaskController } from './task.controller';
 import { TaskService } from './task.service';
+import { TextLabelModule } from '../text-label/text-label.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task, TextLabel, ColorLabel])],
+  imports: [
+    TypeOrmModule.forFeature([Task, TextLabel, ColorLabel]),
+    TextLabelModule,
+  ],
   controllers: [TaskController],
   providers: [TaskService],
 })

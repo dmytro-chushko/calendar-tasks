@@ -8,6 +8,7 @@ import { Task } from '../task/entities/task.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TextLabel, Task])],
+  exports: [TextLabelService],
   controllers: [TextLabelController],
   providers: [TextLabelService],
 })
