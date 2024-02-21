@@ -11,8 +11,8 @@ function App() {
 
   return (
     <>
-      <Loader isShown={isShown} />
       <MainRouter />
+      <Loader isShown={isShown} />
       <ToastContainer />
     </>
   );

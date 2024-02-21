@@ -9,3 +9,4 @@ export type * from './IUpdateTaskForm';
 export type * from './SetState';
 export type * from './ICreateTextLabel';
 export type * from './IUpdateTextLabel';
+export type * from './ICreateTextLabelForm';
