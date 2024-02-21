@@ -3,7 +3,8 @@
     "maxChar": "not more then {{num}} characters",
     "required": "it should be filled",
     "requiredLength": "it must contains {{num}} characters",
-    "boardNotExist": "board not found"
+    "boardNotExist": "board not found",
+    "labelExist": "This label already exist"
   },
   "notification": {
     "rejected": "Something went wrong",

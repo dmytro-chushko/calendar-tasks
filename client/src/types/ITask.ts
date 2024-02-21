@@ -3,6 +3,6 @@ export interface ITask {
   description: string;
   order: number;
   assignedDate: string;
-  textLabels: string[];
+  textLabels: { id: string; text: string }[];
   colorLabels: string[];
 }

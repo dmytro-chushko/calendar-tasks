@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from 'src/styles/ui/button.styled';
 import { FlexBox } from 'src/styles/ui/container.styled';
 import { Input } from 'src/styles/ui/input.styled';
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 
 export const Container = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ export const ButtonContainer = styled(FlexBox)`
   gap: ${({ theme }) => theme.size.general.xxs};
 `;
 
-export const TextLabelContent = styled(StyledParagaph)`
+export const TextLabelContent = styled(StyledParagraph)`
   flex-grow: 1;
 `;
 

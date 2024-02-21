@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Button } from 'src/styles/ui/button.styled';
 import { FlexBox } from 'src/styles/ui/container.styled';
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 
 export const AddButton = styled(Button)`
   border-radius: 50%;
@@ -26,7 +26,7 @@ export const DayContainer = styled.div<IDayElemet>`
   }
 `;
 
-export const DayLabel = styled(StyledParagaph)`
+export const DayLabel = styled(StyledParagraph)`
   font-weight: ${({ theme }) => theme.font.weight.medium};
 
   color: inherit;
@@ -36,7 +36,7 @@ export const DayLabelWrapper = styled(FlexBox)`
   justify-content: space-between;
 `;
 
-export const TasksAmountLabel = styled(StyledParagaph)`
+export const TasksAmountLabel = styled(StyledParagraph)`
   color: ${({ theme }) => theme.font.color.disabled};
 
   font-size: ${({ theme }) => theme.font.size.small};

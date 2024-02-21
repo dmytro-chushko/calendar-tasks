@@ -1,4 +1,4 @@
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 import styled from 'styled-components';
 
 export const WeekGrid = styled.div`
@@ -7,7 +7,7 @@ export const WeekGrid = styled.div`
   grid-template-rows: 1fr;
 `;
 
-export const DayLabel = styled(StyledParagaph)`
+export const DayLabel = styled(StyledParagraph)`
   text-align: center;
   font-weight: ${({ theme }) => theme.font.weight.medium};
 

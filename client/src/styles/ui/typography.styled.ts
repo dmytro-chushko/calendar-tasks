@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledParagaph = styled.p`
+export const StyledParagraph = styled.p`
   padding: ${({ theme }) => theme.size.general.xxs};
 `;

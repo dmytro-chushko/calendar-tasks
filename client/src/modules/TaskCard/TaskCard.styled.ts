@@ -1,6 +1,6 @@
 import { Button } from 'src/styles/ui/button.styled';
 import { FlexBox } from 'src/styles/ui/container.styled';
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 import styled from 'styled-components';
 
 export const ButtonContainer = styled(FlexBox)`
@@ -32,7 +32,7 @@ export const TaskContainer = styled.div`
   }
 `;
 
-export const TaskDescription = styled(StyledParagaph)`
+export const TaskDescription = styled(StyledParagraph)`
   color: ${({ theme }) => theme.font.color.task};
 `;
 
@@ -42,4 +42,15 @@ export const TaskButton = styled(Button)`
 
 export const DescriptionContainer = styled.div`
   position: relative;
+`;
+
+export const TextLabelWrapper = styled(FlexBox)`
+  gap: ${({ theme }) => theme.size.general.xxs};
+`;
+
+export const TextLabelContent = styled(StyledParagraph)`
+  font-size: ${({ theme }) => theme.font.size.extraSmall};
+
+  box-shadow: ${({ theme }) => theme.common.labelBorder};
+  border-radius: ${({ theme }) => theme.common.borderRadius};
 `;

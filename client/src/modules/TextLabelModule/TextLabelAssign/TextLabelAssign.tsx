@@ -13,7 +13,7 @@ interface ITextLabelAssignProps {
 export const TextLabelAssign: FC<ITextLabelAssignProps> = ({ task }) => {
   const { data: textLabels } = useGetAllTextLabelsQuery();
   const checkAssigning = (text: string) =>
-    task.textLabels.some(taskLabel => taskLabel === text);
+    task.textLabels.some(textLabels => textLabels.text === text);
 
   return (
     <StyledList>

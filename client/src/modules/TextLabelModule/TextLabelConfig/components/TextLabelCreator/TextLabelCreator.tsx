@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { ReactComponent as Create } from 'src/assets/check-circle.svg';
 import { ICreateTextLabelForm } from 'src/types';
 
-import { useLoader } from 'src/hooks';
+import { useLoader, useOuterClick } from 'src/hooks';
 import { useCreateTextLabelMutation } from 'src/redux/api/textLabel.api';
 import { Button } from 'src/styles/ui/button.styled';
 import { ErrorContainer } from 'src/styles/ui/input.styled';
@@ -15,6 +15,7 @@ import { Container, TextLabelInput } from './TextLabelCreator.styled';
 
 export const TextLabelCreator: FC = () => {
   const { t } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [createTextLaael, { isLoading, isSuccess }] =
     useCreateTextLabelMutation();
   const schema = useCreateTextLabelSchema();
@@ -28,11 +29,15 @@ export const TextLabelCreator: FC = () => {
     resolver: yupResolver(schema),
   });
 
+  const handleOuterClick = () => reset({ text: '' });
+
   const handleClickSubmit = handleSubmit(
     async ({ text }: ICreateTextLabelForm) => {
       await createTextLaael({ text });
     },
   );
+
+  useOuterClick(containerRef, handleOuterClick);
 
   useLoader(isLoading);
 
@@ -46,7 +51,7 @@ export const TextLabelCreator: FC = () => {
 
   return (
     <>
-      <Container>
+      <Container ref={containerRef}>
         <TextLabelInput
           type="text"
           placeholder={t('placeholder.textLabelInput')}

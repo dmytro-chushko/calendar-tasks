@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 
-export const HolidayLabel = styled(StyledParagaph)`
+export const HolidayLabel = styled(StyledParagraph)`
   border-radius: ${({ theme }) => theme.common.innerBorderRadius};
   background-color: ${({ theme }) => theme.color.holiday};
 `;

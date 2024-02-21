@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Button } from 'src/styles/ui/button.styled';
-import { StyledParagaph } from 'src/styles/ui/typography.styled';
+import { StyledParagraph } from 'src/styles/ui/typography.styled';
 
 export const AddButton = styled(Button)`
   position: absolute;
@@ -20,7 +20,7 @@ export const WeekContainer = styled.div`
   gap: ${({ theme }) => theme.size.general.xxs};
 `;
 
-export const DateLabel = styled(StyledParagaph)`
+export const DateLabel = styled(StyledParagraph)`
   text-align: center;
   font-size: ${({ theme }) => theme.font.size.medium};
   font-weight: ${({ theme }) => theme.font.weight.medium};

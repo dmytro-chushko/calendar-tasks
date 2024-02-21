@@ -27,6 +27,8 @@ import {
   TaskButton,
   TaskContainer,
   TaskDescription,
+  TextLabelContent,
+  TextLabelWrapper,
 } from './TaskCard.styled';
 
 interface ITaskCardProps {
@@ -145,6 +147,11 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           ))}
         </ButtonContainer>
       </DescriptionContainer>
+      <TextLabelWrapper>
+        {task.textLabels.map(({ id, text }) => (
+          <TextLabelContent key={id}>{text}</TextLabelContent>
+        ))}
+      </TextLabelWrapper>
       <TextLabelModule isOpen={isTextLabelModalOpen} onClose={handleModalClose}>
         <TextLabelAssign task={task} />
       </TextLabelModule>
