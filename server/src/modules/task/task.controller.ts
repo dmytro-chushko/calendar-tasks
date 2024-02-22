@@ -71,7 +71,7 @@ export class TaskController {
 
   @ApiOperation({ summary: 'Assign text label' })
   @ApiResponse({ status: 200, type: Task })
-  @Post(AppRoute.ASSNG_TEXT_LABEL)
+  @Post(AppRoute.ASSING_TEXT_LABEL)
   assignTextLabel(@Body() dto: AssignLabelDto): Promise<Task> {
     return this.taskService.assignTextLabel(dto);
   }
@@ -81,5 +81,19 @@ export class TaskController {
   @Post(AppRoute.UNASSIGN_TEXT_LABEL)
   unAssignTextLabel(@Body() dto: AssignLabelDto): Promise<Task> {
     return this.taskService.unassignTextLabel(dto);
+  }
+
+  @ApiOperation({ summary: 'Assign color label' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.ASSING_COLOR_LABEL)
+  assignColorLabel(@Body() dto: AssignLabelDto): Promise<Task> {
+    return this.taskService.assignColorLabel(dto);
+  }
+
+  @ApiOperation({ summary: 'Unassign color label' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.UNASSIGN_COLOR_LABEL)
+  unAssignColorLabel(@Body() dto: AssignLabelDto): Promise<Task> {
+    return this.taskService.unassignColorLabel(dto);
   }
 }
