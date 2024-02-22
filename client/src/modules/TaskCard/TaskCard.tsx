@@ -7,7 +7,6 @@ import { ReactComponent as Palette } from 'src/assets/palette.svg';
 import { ReactComponent as Tletter } from 'src/assets/t-letter.svg';
 import { ReactComponent as Trash } from 'src/assets/trash.svg';
 import { useDebounce, useLoader } from 'src/hooks';
-import { useOuterClick } from 'src/hooks/useOuterClick.hook';
 import {
   useRemoveTaskMutation,
   useUpdateTaskMutation,
@@ -19,10 +18,12 @@ import { useUpdateTaskSchema } from 'src/utils/validation/useUpdateTask.schema';
 
 import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
 
-import { TextLabelModule } from '..';
+import { DropDownContainer, OuterClickWrapper } from 'src/components';
 import { TextLabelAssign } from '../TextLabelModule/TextLabelAssign';
+
+import { ButtonCover } from 'src/styles/ui/button.styled';
 import {
-  ButtonContainer,
+  ButtomContainer,
   DescriptionContainer,
   TaskButton,
   TaskContainer,
@@ -37,6 +38,7 @@ interface ITaskCardProps {
 
 export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isColorLabelOpen, setIsColorLabelOpen] = useState<boolean>(false);
   const [isTextLabelModalOpen, setIsTextLabelModalOpen] =
     useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,12 +66,12 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     {
       id: 'text-label-button',
       icon: <Tletter width="10" height="10" />,
-      handler: () => setIsTextLabelModalOpen(true),
+      handler: () => setIsTextLabelModalOpen(state => !state),
     },
     {
       id: 'color-label-button',
       icon: <Palette width="16" height="16" />,
-      handler: () => console.log('color-label'),
+      handler: () => setIsColorLabelOpen(state => !state),
     },
     {
       id: 'edit-button',
@@ -88,7 +90,9 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     },
   ];
 
-  const handleModalClose = () => setIsTextLabelModalOpen(false);
+  const handleColorLabelOuterClick = () => setIsColorLabelOpen(false);
+
+  const handleTextLabelClose = () => setIsTextLabelModalOpen(false);
 
   const handleOuterClick = () => {
     setIsEdit(false);
@@ -99,7 +103,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     await updateTask({ id, description });
   };
 
-  useOuterClick<HTMLDivElement>(containerRef, handleOuterClick);
+  // isEdit && useOuterClick<HTMLDivElement>(containerRef, handleOuterClick);
 
   useLoader(isLoading);
 
@@ -118,22 +122,27 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     <TaskContainer ref={containerRef}>
       <DescriptionContainer>
         {isEdit ? (
-          <>
-            <Input
-              type="text"
-              $isError={!!errors.description}
-              defaultValue={description}
-              {...register('description')}
-            />
-            {errors.description && (
-              <ErrorContainer>{errors.description.message}</ErrorContainer>
-            )}
-          </>
+          <OuterClickWrapper
+            onOuterClick={handleOuterClick}
+            exception="edit-button"
+          >
+            <>
+              <Input
+                type="text"
+                $isError={!!errors.description}
+                defaultValue={description}
+                {...register('description')}
+              />
+              {errors.description && (
+                <ErrorContainer>{errors.description.message}</ErrorContainer>
+              )}
+            </>
+          </OuterClickWrapper>
         ) : (
           <TaskDescription>{modifiedDescription}</TaskDescription>
         )}
 
-        <ButtonContainer>
+        <ButtomContainer>
           {buttons.map(({ id, icon, handler }) => (
             <TaskButton
               key={id}
@@ -143,18 +152,30 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
               onClick={handler}
             >
               {icon}
+              <ButtonCover data-label={id} />
             </TaskButton>
           ))}
-        </ButtonContainer>
+        </ButtomContainer>
+        <DropDownContainer
+          isShown={isColorLabelOpen}
+          onOuterClick={handleColorLabelOuterClick}
+          exception="color-label-button"
+        >
+          ColorLabel
+        </DropDownContainer>
+        <DropDownContainer
+          isShown={isTextLabelModalOpen}
+          onOuterClick={handleTextLabelClose}
+          exception="text-label-button"
+        >
+          <TextLabelAssign task={task} />
+        </DropDownContainer>
       </DescriptionContainer>
       <TextLabelWrapper>
         {task.textLabels.map(({ id, text }) => (
           <TextLabelContent key={id}>{text}</TextLabelContent>
         ))}
       </TextLabelWrapper>
-      <TextLabelModule isOpen={isTextLabelModalOpen} onClose={handleModalClose}>
-        <TextLabelAssign task={task} />
-      </TextLabelModule>
     </TaskContainer>
   );
 };

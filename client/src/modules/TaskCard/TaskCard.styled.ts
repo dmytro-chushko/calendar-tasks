@@ -3,7 +3,7 @@ import { FlexBox } from 'src/styles/ui/container.styled';
 import { StyledParagraph } from 'src/styles/ui/typography.styled';
 import styled from 'styled-components';
 
-export const ButtonContainer = styled(FlexBox)`
+export const ButtomContainer = styled(FlexBox)`
   position: absolute;
   top: ${({ theme }) => theme.size.general.xxs};
   right: ${({ theme }) => theme.size.general.xxs};
@@ -25,7 +25,7 @@ export const TaskContainer = styled.div`
   border-radius: ${({ theme }) => theme.common.innerBorderRadius};
 
   @media (hover: hover) {
-    &:hover ${ButtonContainer} {
+    &:hover ${ButtomContainer} {
       opacity: 1;
       pointer-events: all;
     }
