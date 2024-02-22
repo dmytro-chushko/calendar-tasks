@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -6,6 +6,7 @@ import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
 import { CreateColorLabelDto } from './dto/create-color-label.dto';
 import { UpdateColorLabelDto } from './dto/update-color-label.dto';
 import { ColorLabel } from './entities/color-label.entity';
+import { EXCEPTION_MESSAGE } from 'src/utils/error-messages';
 
 @Injectable()
 export class ColorLabelService {
@@ -15,6 +16,16 @@ export class ColorLabelService {
   ) {}
 
   async create(createColorLabelDto: CreateColorLabelDto): Promise<ColorLabel> {
+    const textLabel = await this.colorLabelRepository.findOne({
+      where: { color: createColorLabelDto.color },
+    });
+    if (textLabel) {
+      throw new HttpException(
+        EXCEPTION_MESSAGE.ALREADY_EXIST,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const newColorLabel = this.colorLabelRepository.create(createColorLabelDto);
 
     return await this.colorLabelRepository.save(newColorLabel);

@@ -4,16 +4,18 @@ import { Repository } from 'typeorm';
 
 import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
 import { TextLabelService } from '../text-label/text-label.service';
-import { AssignTextLabelDto } from './dto/assign-text-label.dto';
+import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
+import { ColorLabelService } from '../color-label/color-label.service';
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(Task) private readonly taskRepository: Repository<Task>,
     private readonly textLabelService: TextLabelService,
+    private readonly colorLabelService: ColorLabelService,
   ) {}
 
   async create({ assignedDate }: CreateTaskDto): Promise<Task> {
@@ -98,7 +100,7 @@ export class TaskService {
     return removedTask;
   }
 
-  async assignTextTask(dto: AssignTextLabelDto): Promise<Task> {
+  async assignTextLabel(dto: AssignLabelDto): Promise<Task> {
     const task = await this.findOne(dto.taskId);
     const textLabel = await this.textLabelService.findOne(dto.labelId);
 
@@ -107,10 +109,27 @@ export class TaskService {
     return await this.taskRepository.save(task);
   }
 
-  async unassignTextTask(dto: AssignTextLabelDto): Promise<Task> {
+  async unassignTextLabel(dto: AssignLabelDto): Promise<Task> {
     const task = await this.findOne(dto.taskId);
 
     task.textLabels = task.textLabels.filter(({ id }) => id !== dto.labelId);
+
+    return await this.taskRepository.save(task);
+  }
+
+  async assignColorLabel(dto: AssignLabelDto): Promise<Task> {
+    const task = await this.findOne(dto.taskId);
+    const colorLabel = await this.colorLabelService.findOne(dto.labelId);
+
+    task.colorLabels.push(colorLabel);
+
+    return await this.taskRepository.save(task);
+  }
+
+  async unassignColorLabel(dto: AssignLabelDto): Promise<Task> {
+    const task = await this.findOne(dto.taskId);
+
+    task.colorLabels = task.colorLabels.filter(({ id }) => id !== dto.labelId);
 
     return await this.taskRepository.save(task);
   }

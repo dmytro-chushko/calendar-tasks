@@ -9,4 +9,5 @@ export const enum ValidationError {
 
 export const enum EXCEPTION_MESSAGE {
   NOT_FOUND = 'Entity not found',
+  ALREADY_EXIST = 'Entity already exist',
 }

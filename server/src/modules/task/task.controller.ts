@@ -11,7 +11,7 @@ import {
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ApiName, AppRoute } from 'src/utils/consts';
-import { AssignTextLabelDto } from './dto/assign-text-label.dto';
+import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
@@ -72,14 +72,14 @@ export class TaskController {
   @ApiOperation({ summary: 'Assign text label' })
   @ApiResponse({ status: 200, type: Task })
   @Post(AppRoute.ASSNG_TEXT_LABEL)
-  assignTextLabel(@Body() dto: AssignTextLabelDto): Promise<Task> {
-    return this.taskService.assignTextTask(dto);
+  assignTextLabel(@Body() dto: AssignLabelDto): Promise<Task> {
+    return this.taskService.assignTextLabel(dto);
   }
 
   @ApiOperation({ summary: 'Unassign text label' })
   @ApiResponse({ status: 200, type: Task })
   @Post(AppRoute.UNASSIGN_TEXT_LABEL)
-  unAssignTextLabel(@Body() dto: AssignTextLabelDto): Promise<Task> {
-    return this.taskService.unassignTextTask(dto);
+  unAssignTextLabel(@Body() dto: AssignLabelDto): Promise<Task> {
+    return this.taskService.unassignTextLabel(dto);
   }
 }

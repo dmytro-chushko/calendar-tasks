@@ -7,11 +7,13 @@ import { Task } from './entities/task.entity';
 import { TaskController } from './task.controller';
 import { TaskService } from './task.service';
 import { TextLabelModule } from '../text-label/text-label.module';
+import { ColorLabelModule } from '../color-label/color-label.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Task, TextLabel, ColorLabel]),
     TextLabelModule,
+    ColorLabelModule,
   ],
   controllers: [TaskController],
   providers: [TaskService],

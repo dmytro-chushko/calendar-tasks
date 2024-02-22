@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EXCEPTION_MESSAGE } from 'src/utils/error-messages';
+import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
 import { Repository } from 'typeorm';
 import { CreateTextLabelDto } from './dto/create-text-label.dto';
 import { UpdateTextLabelDto } from './dto/update-text-label.dto';
 import { TextLabel } from './entities/text-label.entity';
-import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
 
 @Injectable()
 export class TextLabelService {
@@ -14,6 +15,16 @@ export class TextLabelService {
   ) {}
 
   async create(createTextLabelDto: CreateTextLabelDto): Promise<TextLabel> {
+    const textLabel = await this.textLabelRepository.findOne({
+      where: { text: createTextLabelDto.text },
+    });
+    if (textLabel) {
+      throw new HttpException(
+        EXCEPTION_MESSAGE.ALREADY_EXIST,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const newTextLabel = this.textLabelRepository.create(createTextLabelDto);
 
     return await this.textLabelRepository.save(newTextLabel);

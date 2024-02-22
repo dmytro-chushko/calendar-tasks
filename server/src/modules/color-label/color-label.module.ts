@@ -8,6 +8,7 @@ import { Task } from '../task/entities/task.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ColorLabel, Task])],
+  exports: [ColorLabelService],
   controllers: [ColorLabelController],
   providers: [ColorLabelService],
 })
