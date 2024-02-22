@@ -44,7 +44,7 @@ export const DescriptionContainer = styled.div`
   position: relative;
 `;
 
-export const TextLabelWrapper = styled(FlexBox)`
+export const LabelWrapper = styled(FlexBox)`
   gap: ${({ theme }) => theme.size.general.xxs};
 `;
 
@@ -53,4 +53,16 @@ export const TextLabelContent = styled(StyledParagraph)`
 
   box-shadow: ${({ theme }) => theme.common.labelBorder};
   border-radius: ${({ theme }) => theme.common.borderRadius};
+`;
+
+interface IColorLabelContent {
+  $color: string;
+}
+
+export const ColorLabelContent = styled.div<IColorLabelContent>`
+  width: ${({ theme }) => theme.size.general.m};
+  height: ${({ theme }) => theme.size.general.xxs};
+
+  background-color: ${({ $color }) => $color};
+  border-radius: ${({ theme }) => theme.common.innerBorderRadius};
 `;

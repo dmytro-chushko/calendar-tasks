@@ -1,5 +1,11 @@
 import { FC } from 'react';
+
 import { Checkbox } from 'src/components';
+import { useLoader } from 'src/hooks';
+import {
+  useAssignColorLabelMutation,
+  useUnassignColorLabelMutation,
+} from 'src/redux/api/task.api';
 
 interface IColorLabelItemProps {
   taskId: string;
@@ -14,7 +20,18 @@ export const ColorLabelItem: FC<IColorLabelItemProps> = ({
   color,
   assigned,
 }) => {
-  const handleChange = () => console.log('change');
+  const [assignLabel, { isLoading: isAssigning }] =
+    useAssignColorLabelMutation();
+  const [unassignLabel, { isLoading: isUnassigning }] =
+    useUnassignColorLabelMutation();
+
+  const handleChange = async () => {
+    assigned
+      ? await unassignLabel({ taskId, labelId })
+      : await assignLabel({ taskId, labelId });
+  };
+
+  useLoader(isAssigning || isUnassigning);
 
   return (
     <li style={{ width: '100%' }}>

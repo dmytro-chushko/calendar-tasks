@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ReactComponent as Edit } from 'src/assets/edit.svg';
 import { ReactComponent as Palette } from 'src/assets/palette.svg';
 import { ReactComponent as Tletter } from 'src/assets/t-letter.svg';
 import { ReactComponent as Trash } from 'src/assets/trash.svg';
-import { useDebounce, useLoader } from 'src/hooks';
+import { useDebounce } from 'src/hooks';
 import {
   useRemoveTaskMutation,
   useUpdateTaskMutation,
@@ -25,12 +25,13 @@ import { ButtonCover } from 'src/styles/ui/button.styled';
 import { ColorLabelModule } from '../ColorLabelModule';
 import {
   ButtomContainer,
+  ColorLabelContent,
   DescriptionContainer,
+  LabelWrapper,
   TaskButton,
   TaskContainer,
   TaskDescription,
   TextLabelContent,
-  TextLabelWrapper,
 } from './TaskCard.styled';
 
 interface ITaskCardProps {
@@ -42,7 +43,6 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   const [isColorLabelOpen, setIsColorLabelOpen] = useState<boolean>(false);
   const [isTextLabelModalOpen, setIsTextLabelModalOpen] =
     useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [updateTask] = useUpdateTaskMutation();
   const [removeTask, { isLoading }] = useRemoveTaskMutation();
   const schema = useUpdateTaskSchema();
@@ -104,9 +104,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     await updateTask({ id, description });
   };
 
-  // isEdit && useOuterClick<HTMLDivElement>(containerRef, handleOuterClick);
-
-  useLoader(isLoading);
+  // useLoader(isLoading);
 
   useEffect(() => {
     setFocus('description');
@@ -120,7 +118,12 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   }, [inputDescription]);
 
   return (
-    <TaskContainer ref={containerRef}>
+    <TaskContainer>
+      <LabelWrapper>
+        {task.colorLabels.map(({ id, color }) => (
+          <ColorLabelContent key={id} $color={color} />
+        ))}
+      </LabelWrapper>
       <DescriptionContainer>
         {isEdit ? (
           <OuterClickWrapper
@@ -172,11 +175,11 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           <TextLabelAssign task={task} />
         </DropDownContainer>
       </DescriptionContainer>
-      <TextLabelWrapper>
+      <LabelWrapper>
         {task.textLabels.map(({ id, text }) => (
           <TextLabelContent key={id}>{text}</TextLabelContent>
         ))}
-      </TextLabelWrapper>
+      </LabelWrapper>
     </TaskContainer>
   );
 };

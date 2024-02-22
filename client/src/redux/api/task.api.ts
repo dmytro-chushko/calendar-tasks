@@ -52,6 +52,22 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['Task'],
     }),
+    assignColorLabel: builder.mutation<ITask, IAssignLabel>({
+      query: body => ({
+        url: QueryUrl.ASSIGN_COLOR_LABEL,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Task'],
+    }),
+    unassignColorLabel: builder.mutation<ITask, IAssignLabel>({
+      query: body => ({
+        url: QueryUrl.UNASSIGN_COLOR_LABEL,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Task'],
+    }),
   }),
 });
 
@@ -62,4 +78,6 @@ export const {
   useRemoveTaskMutation,
   useAssignTextLabelMutation,
   useUnassignTextLabelMutation,
+  useAssignColorLabelMutation,
+  useUnassignColorLabelMutation,
 } = taskApi;
