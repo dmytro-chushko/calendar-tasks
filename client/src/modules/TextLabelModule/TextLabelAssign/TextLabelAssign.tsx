@@ -12,11 +12,12 @@ interface ITextLabelAssignProps {
 
 export const TextLabelAssign: FC<ITextLabelAssignProps> = ({ task }) => {
   const { data: textLabels } = useGetAllTextLabelsQuery();
+
   const checkAssigning = (text: string) =>
-    task.textLabels.some(textLabels => textLabels.text === text);
+    task.textLabels.some(textLabel => textLabel.text === text);
 
   return (
-    <StyledList>
+    <StyledList as="ul">
       {textLabels &&
         textLabels.length > 0 &&
         textLabels.map(({ id, text }) => (

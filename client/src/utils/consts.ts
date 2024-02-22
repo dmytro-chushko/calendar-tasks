@@ -9,6 +9,7 @@ export const enum ReducerPath {
   HOLIDAY_API = 'holiday-api',
   TASK_API = 'task-api',
   TEXT_LABEL_API = 'text-label-api',
+  COLOR_LABEL_API = 'color-label-api',
 }
 
 export const enum HolidayApi {
@@ -23,6 +24,7 @@ export const enum QueryUrl {
   TEXT_LABEL = 'text-label',
   ASSIGN_TEXT_LABEL = 'assign-text-label',
   UNASSIGN_TEXT_LABEL = 'unassign-text-label',
+  COLOR_LABEL = 'color-label',
 }
 
 export const enum MaxChar {

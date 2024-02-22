@@ -1,4 +1,5 @@
 export type * from './IAssignLabel';
+export type * from './IColorLabel';
 export type * from './ICreateTask';
 export type * from './ICreateTextLabel';
 export type * from './ICreateTextLabelForm';

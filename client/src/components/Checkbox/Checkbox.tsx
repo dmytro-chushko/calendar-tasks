@@ -3,17 +3,20 @@ import {
   CheckboxInput,
   CheckboxLabel,
   CheckboxTrigger,
-} from 'src/modules/TextLabelModule/TextLabelAssign/TextLabelAssign.styled';
+  ColorLabel,
+} from './Checkbox.styled';
 
 interface ICheckboxProps {
   checked: boolean;
   label?: string;
+  color?: string;
   onCheckboxChange: () => void;
 }
 
 export const Checkbox: FC<ICheckboxProps> = ({
   checked,
   label,
+  color,
   onCheckboxChange,
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked || false);
@@ -32,6 +35,7 @@ export const Checkbox: FC<ICheckboxProps> = ({
       />
       <CheckboxTrigger />
       {label && label}
+      {color && <ColorLabel $color={color} />}
     </CheckboxLabel>
   );
 };

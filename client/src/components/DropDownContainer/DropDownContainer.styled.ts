@@ -10,11 +10,12 @@ export const Container = styled.div<IContainer>`
   right: 0;
   z-index: 1;
 
-  width: 10rem;
-  height: 15rem;
+  width: 8rem;
+  height: 9rem;
   padding: ${({ theme }) => theme.size.general.xxs};
 
   background-color: ${({ theme }) => theme.color.primary};
+  border-radius: ${({ theme }) => theme.common.innerBorderRadius};
 
   opacity: ${({ $isShown }) => ($isShown ? 1 : 0)};
   transform: translateY(-100%)

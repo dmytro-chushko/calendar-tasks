@@ -22,6 +22,7 @@ import { DropDownContainer, OuterClickWrapper } from 'src/components';
 import { TextLabelAssign } from '../TextLabelModule/TextLabelAssign';
 
 import { ButtonCover } from 'src/styles/ui/button.styled';
+import { ColorLabelModule } from '../ColorLabelModule';
 import {
   ButtomContainer,
   DescriptionContainer,
@@ -161,7 +162,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           onOuterClick={handleColorLabelOuterClick}
           exception="color-label-button"
         >
-          ColorLabel
+          <ColorLabelModule task={task} />
         </DropDownContainer>
         <DropDownContainer
           isShown={isTextLabelModalOpen}
