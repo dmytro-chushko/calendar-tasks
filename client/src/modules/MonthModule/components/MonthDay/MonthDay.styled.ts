@@ -13,6 +13,8 @@ interface IDayElemet {
 }
 
 export const DayContainer = styled.div<IDayElemet>`
+  position: relative;
+
   padding: ${({ theme }) => theme.size.general.xs};
 
   color: ${({ $isActive, theme }) =>

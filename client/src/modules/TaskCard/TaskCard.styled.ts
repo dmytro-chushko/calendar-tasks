@@ -3,7 +3,7 @@ import { FlexBox } from 'src/styles/ui/container.styled';
 import { StyledParagraph } from 'src/styles/ui/typography.styled';
 import styled from 'styled-components';
 
-export const ButtomContainer = styled(FlexBox)`
+export const ButtonContainer = styled(FlexBox)`
   position: absolute;
   top: ${({ theme }) => theme.size.general.xxs};
   right: ${({ theme }) => theme.size.general.xxs};
@@ -24,8 +24,10 @@ export const TaskContainer = styled.div`
   background-color: ${({ theme }) => theme.color.task};
   border-radius: ${({ theme }) => theme.common.innerBorderRadius};
 
+  cursor: grab;
+
   @media (hover: hover) {
-    &:hover ${ButtomContainer} {
+    &:hover ${ButtonContainer} {
       opacity: 1;
       pointer-events: all;
     }
@@ -65,4 +67,18 @@ export const ColorLabelContent = styled.div<IColorLabelContent>`
 
   background-color: ${({ $color }) => $color};
   border-radius: ${({ theme }) => theme.common.innerBorderRadius};
+`;
+
+export const ItemCover = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  border-radius: ${({ theme }) => theme.common.innerBorderRadius};
+  opacity: 0.5;
+  background-color: transparent;
+
+  transition: ${({ theme }) => theme.common.transition};
 `;

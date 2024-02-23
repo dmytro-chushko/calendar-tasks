@@ -20,6 +20,8 @@ import {
   TasksAmountLabel,
 } from './MonthDay.styled';
 import { TaskCard } from 'src/modules';
+import { useDragAndDrop } from 'src/hooks/useDragAndDrop.hook';
+import { DayCover } from 'src/styles/ui/container.styled';
 
 interface IMonthDayProps {
   date: Date;
@@ -31,6 +33,15 @@ export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
   const { formatFirstOrLastMonthDate } = useMonth();
   const { data: tasks, isLoading: isTasksFetching } = useGetAllTasksQuery();
   const [createTask, { isLoading: isTaskCreating }] = useCreateTaskMutation();
+  const {
+    handleDragTaskStart,
+    handleDragTaskLeave,
+    handleDragTaskOver,
+    handleDrop,
+    handleDragToDayCellOver,
+    handleDragToDayCellLeave,
+    handleDragToDayCellDrop,
+  } = useDragAndDrop();
 
   const filteredTasks = tasks
     ? tasks?.filter(task => isTheSameDate(new Date(task.assignedDate), date))
@@ -43,7 +54,12 @@ export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
   useLoader(isTasksFetching || isTaskCreating);
 
   return (
-    <DayContainer $isActive={date.getMonth() === month}>
+    <DayContainer
+      $isActive={date.getMonth() === month}
+      onDragOver={handleDragToDayCellOver}
+      onDragLeave={handleDragToDayCellLeave}
+      onDrop={e => handleDragToDayCellDrop(e, date)}
+    >
       <DayLabelWrapper>
         <DayLabel>{formatFirstOrLastMonthDate(date)}</DayLabel>
         <AddButton
@@ -56,10 +72,17 @@ export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
         </AddButton>
       </DayLabelWrapper>
       <Holidays date={date} />
+      <DayCover data-daycell />
       {tasksAmount > 0 && (
         <>
           <TasksAmountLabel>{`${tasksAmount} ${tasksAmount > 1 ? t('tasks') : t('task')}`}</TasksAmountLabel>
-          <TaskCard task={filteredTasks[0]} />
+          <TaskCard
+            task={filteredTasks[0]}
+            onDragStart={e => handleDragTaskStart(e, filteredTasks[0])}
+            onDragOver={handleDragTaskOver}
+            onDragLeave={handleDragTaskLeave}
+            onDrop={e => handleDrop(e, filteredTasks[0])}
+          />
         </>
       )}
     </DayContainer>

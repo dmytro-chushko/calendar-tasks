@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useState } from 'react';
+import { DragEventHandler, FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ReactComponent as Edit } from 'src/assets/edit.svg';
@@ -15,18 +15,19 @@ import { ITask, IUpdateTaskForm } from 'src/types';
 import { DebounceTime, MaxChar } from 'src/utils/consts';
 import { modifyString } from 'src/utils/helpers';
 import { useUpdateTaskSchema } from 'src/utils/validation/useUpdateTask.schema';
-
-import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
+import { ColorLabelModule } from '../ColorLabelModule';
 
 import { DropDownContainer, OuterClickWrapper } from 'src/components';
 import { TextLabelAssign } from '../TextLabelModule/TextLabelAssign';
 
+import { ButtonLoader } from 'src/components/ButtonLoader/ButtonLoader';
 import { ButtonCover } from 'src/styles/ui/button.styled';
-import { ColorLabelModule } from '../ColorLabelModule';
+import { ErrorContainer, Input } from 'src/styles/ui/input.styled';
 import {
-  ButtomContainer,
+  ButtonContainer,
   ColorLabelContent,
   DescriptionContainer,
+  ItemCover,
   LabelWrapper,
   TaskButton,
   TaskContainer,
@@ -36,9 +37,14 @@ import {
 
 interface ITaskCardProps {
   task: ITask;
+  onDragStart?: DragEventHandler<HTMLDivElement>;
+  onDragLeave?: DragEventHandler<HTMLDivElement>;
+  onDragEnd?: DragEventHandler<HTMLDivElement>;
+  onDragOver?: DragEventHandler<HTMLDivElement>;
+  onDrop?: DragEventHandler<HTMLDivElement>;
 }
 
-export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
+export const TaskCard: FC<ITaskCardProps> = ({ task, ...props }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isColorLabelOpen, setIsColorLabelOpen] = useState<boolean>(false);
   const [isTextLabelModalOpen, setIsTextLabelModalOpen] =
@@ -84,7 +90,11 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     },
     {
       id: 'remove-button',
-      icon: <Trash width="16" height="16" />,
+      icon: isLoading ? (
+        <ButtonLoader width="1rem" height="1rem" />
+      ) : (
+        <Trash width="16" height="16" />
+      ),
       handler: async () => {
         await removeTask(id);
       },
@@ -104,8 +114,6 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
     await updateTask({ id, description });
   };
 
-  // useLoader(isLoading);
-
   useEffect(() => {
     setFocus('description');
   }, [setFocus, isEdit]);
@@ -118,7 +126,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
   }, [inputDescription]);
 
   return (
-    <TaskContainer>
+    <TaskContainer draggable {...props}>
       <LabelWrapper>
         {task.colorLabels.map(({ id, color }) => (
           <ColorLabelContent key={id} $color={color} />
@@ -146,7 +154,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           <TaskDescription>{modifiedDescription}</TaskDescription>
         )}
 
-        <ButtomContainer>
+        <ButtonContainer>
           {buttons.map(({ id, icon, handler }) => (
             <TaskButton
               key={id}
@@ -159,7 +167,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
               <ButtonCover data-label={id} />
             </TaskButton>
           ))}
-        </ButtomContainer>
+        </ButtonContainer>
         <DropDownContainer
           isShown={isColorLabelOpen}
           onOuterClick={handleColorLabelOuterClick}
@@ -180,6 +188,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task }) => {
           <TextLabelContent key={id}>{text}</TextLabelContent>
         ))}
       </LabelWrapper>
+      {!isEdit && <ItemCover data-draggable />}
     </TaskContainer>
   );
 };
