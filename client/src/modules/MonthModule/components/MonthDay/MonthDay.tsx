@@ -7,10 +7,13 @@ import { useMonth } from 'src/hooks';
 import { useLoader } from 'src/hooks/useLoader.hook';
 import { useGetCurrentDate } from 'src/redux/hooks';
 
+import { useDragAndDrop } from 'src/hooks/useDragAndDrop.hook';
+import { TaskCard } from 'src/modules';
 import {
   useCreateTaskMutation,
   useGetAllTasksQuery,
 } from 'src/redux/api/task.api';
+import { DayCover } from 'src/styles/ui/container.styled';
 import { formatYMDDate, isTheSameDate } from 'src/utils/helpers';
 import {
   AddButton,
@@ -19,9 +22,6 @@ import {
   DayLabelWrapper,
   TasksAmountLabel,
 } from './MonthDay.styled';
-import { TaskCard } from 'src/modules';
-import { useDragAndDrop } from 'src/hooks/useDragAndDrop.hook';
-import { DayCover } from 'src/styles/ui/container.styled';
 
 interface IMonthDayProps {
   date: Date;
@@ -64,6 +64,7 @@ export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
         <DayLabel>{formatFirstOrLastMonthDate(date)}</DayLabel>
         <AddButton
           type="button"
+          style={{ zIndex: '1' }}
           $width="1.2rem"
           $height="1.2rem"
           onClick={handleAddButtonClick}

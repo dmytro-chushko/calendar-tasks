@@ -27,6 +27,8 @@ export const enum QueryUrl {
   COLOR_LABEL = 'color-label',
   ASSIGN_COLOR_LABEL = 'assign-color-label',
   UNASSIGN_COLOR_LABEL = 'unassign-color-label',
+  REASSIGN_DATE = 'reassign-date',
+  REASSIGN_ORDER = 'reassign-order',
 }
 
 export const enum MaxChar {

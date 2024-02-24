@@ -1,13 +1,18 @@
 import { DragEvent, useState } from 'react';
+import { useReassignDateMutation } from 'src/redux/api/task.api';
 import { color } from 'src/styles/consts';
 
 import { ITask } from 'src/types';
+import { formatYMDDate } from 'src/utils/helpers';
 
 export const useDragAndDrop = () => {
   const [draggedTaskId, setDraggedTaskId] = useState<string>('');
+  const [reassignDate, { isLoading: isReassigningDate }] =
+    useReassignDateMutation();
 
   const handleDragTaskStart = (e: DragEvent<HTMLDivElement>, task: ITask) => {
-    console.log('DragStart');
+    console.log(task.id);
+    setDraggedTaskId(task.id);
   };
 
   const handleDragTaskLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -19,7 +24,6 @@ export const useDragAndDrop = () => {
 
   const handleDragTaskOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log(e.target);
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = color.accent;
       console.log('Over');
@@ -47,6 +51,7 @@ export const useDragAndDrop = () => {
     if ((e.target as HTMLDivElement).dataset.daycell) {
       (e.target as HTMLDivElement).style.background = color.accent;
     }
+    console.log(draggedTaskId);
   };
 
   const handleDragToDayCellLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -55,7 +60,7 @@ export const useDragAndDrop = () => {
     }
   };
 
-  const handleDragToDayCellDrop = (
+  const handleDragToDayCellDrop = async (
     e: DragEvent<HTMLDivElement>,
     date: Date,
   ) => {
@@ -63,6 +68,11 @@ export const useDragAndDrop = () => {
     if ((e.target as HTMLUListElement).dataset.daycell) {
       (e.target as HTMLUListElement).style.background = 'transparent';
     }
+
+    await reassignDate({
+      draggableTaskId: draggedTaskId,
+      reassignedDate: formatYMDDate(date),
+    });
   };
 
   return {

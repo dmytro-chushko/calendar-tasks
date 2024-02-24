@@ -12,3 +12,5 @@ export type * from './IUpdateTask';
 export type * from './IUpdateTaskForm';
 export type * from './IUpdateTextLabel';
 export type * from './SetState';
+export type * from './IReassignDate';
+export type * from './IReassignOrder';

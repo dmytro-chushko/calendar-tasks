@@ -1,6 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { IAssignLabel, ICreateTask, ITask, IUpdateTask } from 'src/types';
+import {
+  IAssignLabel,
+  ICreateTask,
+  IReassignDate,
+  IReassignOrder,
+  ITask,
+  IUpdateTask,
+} from 'src/types';
 import { QueryUrl, ReducerPath } from 'src/utils/consts';
 import { baseQuery } from '../base-query';
 
@@ -68,6 +75,22 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['Task'],
     }),
+    reassignDate: builder.mutation<ITask, IReassignDate>({
+      query: body => ({
+        url: QueryUrl.REASSIGN_DATE,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Task'],
+    }),
+    reassignOrder: builder.mutation<ITask, IReassignOrder>({
+      query: body => ({
+        url: QueryUrl.REASSIGN_ORDER,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Task'],
+    }),
   }),
 });
 
@@ -80,4 +103,6 @@ export const {
   useUnassignTextLabelMutation,
   useAssignColorLabelMutation,
   useUnassignColorLabelMutation,
+  useReassignDateMutation,
+  useReassignOrderMutation,
 } = taskApi;
