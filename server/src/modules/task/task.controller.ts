@@ -16,6 +16,8 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
 import { TaskService } from './task.service';
+import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
+import { ReassignDateDto } from './dto/reassign-date.dto';
 
 @ApiTags(ApiName.TASK)
 @Controller(AppRoute.TASK)
@@ -95,5 +97,19 @@ export class TaskController {
   @Post(AppRoute.UNASSIGN_COLOR_LABEL)
   unAssignColorLabel(@Body() dto: AssignLabelDto): Promise<Task> {
     return this.taskService.unassignColorLabel(dto);
+  }
+
+  @ApiOperation({ summary: 'Reassign date to the task' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.REASSIGN_DATE)
+  reassignDate(@Body() dto: ReassignDateDto): Promise<Task> {
+    return this.taskService.reassignDate(dto);
+  }
+
+  @ApiOperation({ summary: 'Reassign date or/and order to the task' })
+  @ApiResponse({ status: 200, type: Task })
+  @Post(AppRoute.REASSIGN_ORDER)
+  reassignDateAndOrder(@Body() dto: ReassignedOrderAndDateDto): Promise<Task> {
+    return this.taskService.reassignOrderAndDate(dto);
   }
 }

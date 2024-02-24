@@ -10,6 +10,8 @@ export const enum AppRoute {
   UNASSIGN_TEXT_LABEL = 'unassign-text-label',
   ASSING_COLOR_LABEL = 'assign-color-label',
   UNASSIGN_COLOR_LABEL = 'unassign-color-label',
+  REASSIGN_DATE = 'reassign-date',
+  REASSIGN_ORDER = 'reassign-order',
 }
 
 export const enum ApiName {

@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
+import { ColorLabelService } from '../color-label/color-label.service';
 import { TextLabelService } from '../text-label/text-label.service';
 import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
-import { ColorLabelService } from '../color-label/color-label.service';
+import { ReassignDateDto } from './dto/reassign-date.dto';
 
 @Injectable()
 export class TaskService {
@@ -97,6 +99,15 @@ export class TaskService {
 
     const removedTask = await this.taskRepository.remove(task);
 
+    await this.taskRepository.decrement(
+      {
+        assignedDate: task.assignedDate,
+        order: MoreThan(task.order),
+      },
+      'order',
+      1,
+    );
+
     return removedTask;
   }
 
@@ -132,5 +143,71 @@ export class TaskService {
     task.colorLabels = task.colorLabels.filter(({ id }) => id !== dto.labelId);
 
     return await this.taskRepository.save(task);
+  }
+
+  async reassignDate(dto: ReassignDateDto): Promise<Task> {
+    const draggableTask = await this.findOne(dto.draggableTaskId);
+    const existingTasksNum = await this.taskRepository.countBy({
+      assignedDate: dto.reassignedDate,
+    });
+    const updatedTask = await this.taskRepository.save({
+      ...draggableTask,
+      assignedDate: dto.reassignedDate,
+      order: existingTasksNum + 1,
+    });
+
+    return updatedTask;
+  }
+
+  async reassignOrderAndDate(dto: ReassignedOrderAndDateDto): Promise<Task> {
+    const draggableTask = await this.findOne(dto.draggableTaskId);
+    const existingTasksNum = await this.taskRepository.countBy({
+      assignedDate: dto.reassignedDate,
+    });
+
+    if (draggableTask.assignedDate === dto.reassignedDate) {
+      await this.taskRepository[
+        draggableTask.order > dto.reassignedOrder ? 'increment' : 'decrement'
+      ](
+        {
+          assignedDate: dto.reassignedDate,
+          order:
+            draggableTask.order > dto.reassignedOrder
+              ? Between(dto.reassignedOrder, draggableTask.order)
+              : Between(draggableTask.order, dto.reassignedOrder),
+        },
+        'order',
+        1,
+      );
+    } else {
+      await this.taskRepository.decrement(
+        {
+          assignedDate: draggableTask.assignedDate,
+          order: MoreThan(draggableTask.order),
+        },
+        'order',
+        1,
+      );
+
+      await this.taskRepository.increment(
+        {
+          assignedDate: dto.reassignedDate,
+          order: MoreThanOrEqual(dto.reassignedOrder),
+        },
+        'order',
+        1,
+      );
+    }
+
+    const updatedTask = await this.taskRepository.save({
+      ...draggableTask,
+      assignedDate: dto.reassignedDate,
+      order:
+        dto.reassignedOrder === existingTasksNum
+          ? existingTasksNum + 1
+          : dto.reassignedOrder,
+    });
+
+    return updatedTask;
   }
 }
