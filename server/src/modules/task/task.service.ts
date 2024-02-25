@@ -7,10 +7,10 @@ import { ColorLabelService } from '../color-label/color-label.service';
 import { TextLabelService } from '../text-label/text-label.service';
 import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { ReassignDateDto } from './dto/reassign-date.dto';
 import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
-import { ReassignDateDto } from './dto/reassign-date.dto';
 
 @Injectable()
 export class TaskService {
@@ -34,6 +34,7 @@ export class TaskService {
 
   async findAll(): Promise<Task[]> {
     return await this.taskRepository.find({
+      order: { order: 'DESC' },
       relations: {
         textLabels: true,
         colorLabels: true,
