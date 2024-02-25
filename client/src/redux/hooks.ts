@@ -5,6 +5,10 @@ import {
   setCurrentMonth,
   setCurrentWeek,
 } from './reducers/current-date.reducer';
+import {
+  getDraggableTaskId,
+  setDraggableTaskId,
+} from './reducers/draggable-task-id.reducer';
 import type { AppDispatch, RootState } from './store';
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
@@ -23,4 +27,12 @@ export const useSetCurrentWeek = () => {
   const dispatch = useAppDispatch();
 
   return (date: number) => dispatch(setCurrentWeek(date));
+};
+
+export const useGetDraggableTaskId = () => useAppSelector(getDraggableTaskId);
+
+export const useSetDraggableTaskId = () => {
+  const dispatch = useAppDispatch();
+
+  return (id: string) => dispatch(setDraggableTaskId(id));
 };

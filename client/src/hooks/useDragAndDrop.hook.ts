@@ -1,18 +1,26 @@
-import { DragEvent, useState } from 'react';
-import { useReassignDateMutation } from 'src/redux/api/task.api';
+import { DragEvent } from 'react';
+import {
+  useReassignDateMutation,
+  useReassignOrderMutation,
+} from 'src/redux/api/task.api';
+import { useGetDraggableTaskId, useSetDraggableTaskId } from 'src/redux/hooks';
 import { color } from 'src/styles/consts';
 
 import { ITask } from 'src/types';
 import { formatYMDDate } from 'src/utils/helpers';
+import { useLoader } from '.';
 
 export const useDragAndDrop = () => {
-  const [draggedTaskId, setDraggedTaskId] = useState<string>('');
+  const { id } = useGetDraggableTaskId();
+  const setDraggableTaskId = useSetDraggableTaskId();
   const [reassignDate, { isLoading: isReassigningDate }] =
     useReassignDateMutation();
+  const [reassignOrder, { isLoading: isReassigningOrder }] =
+    useReassignOrderMutation();
 
   const handleDragTaskStart = (e: DragEvent<HTMLDivElement>, task: ITask) => {
     console.log(task.id);
-    setDraggedTaskId(task.id);
+    setDraggableTaskId(task.id);
   };
 
   const handleDragTaskLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -30,20 +38,17 @@ export const useDragAndDrop = () => {
     }
   };
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>, task: ITask) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>, task: ITask) => {
     e.preventDefault();
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = 'transparent';
     }
 
-    // if (draggedCard?.draggedId !== card.id) {
-    //   updateCardOrder({
-    //     id: id || '',
-    //     ...draggedCard,
-    //     swappedId: card.id,
-    //     swappedStatus: card.status,
-    //   });
-    // }
+    await reassignOrder({
+      draggableTaskId: id,
+      reassignedDate: task.assignedDate,
+      reassignedOrder: task.order,
+    });
   };
 
   const handleDragToDayCellOver = (e: DragEvent<HTMLDivElement>) => {
@@ -51,7 +56,6 @@ export const useDragAndDrop = () => {
     if ((e.target as HTMLDivElement).dataset.daycell) {
       (e.target as HTMLDivElement).style.background = color.accent;
     }
-    console.log(draggedTaskId);
   };
 
   const handleDragToDayCellLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -70,10 +74,12 @@ export const useDragAndDrop = () => {
     }
 
     await reassignDate({
-      draggableTaskId: draggedTaskId,
+      draggableTaskId: id,
       reassignedDate: formatYMDDate(date),
     });
   };
+
+  useLoader(isReassigningDate || isReassigningOrder);
 
   return {
     handleDragTaskStart,

@@ -6,6 +6,7 @@ export const enum AppRoute {
 export const enum ReducerPath {
   IS_LOADING = 'loader-status',
   CURRENT_MONTH = 'current-month',
+  DRAGGABLE_TASK_ID = 'draggable-task-id',
   HOLIDAY_API = 'holiday-api',
   TASK_API = 'task-api',
   TEXT_LABEL_API = 'text-label-api',

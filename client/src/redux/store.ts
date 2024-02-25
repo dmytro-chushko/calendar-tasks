@@ -7,11 +7,13 @@ import { errorHandler } from './middlewares/erorr-handler.middleware';
 import { date } from './reducers/current-date.reducer';
 import { loaderStatus } from './reducers/is-loading.reducer';
 import { colorLabelApi } from './api/colorLabel.api';
+import { draggableTaskId } from './reducers/draggable-task-id.reducer';
 
 export const store = configureStore({
   reducer: {
     loaderStatus: loaderStatus.reducer,
     date: date.reducer,
+    draggableTaskId: draggableTaskId.reducer,
     [holidayApi.reducerPath]: holidayApi.reducer,
     [taskApi.reducerPath]: taskApi.reducer,
     [textLabelApi.reducerPath]: textLabelApi.reducer,
