@@ -33,7 +33,7 @@ export const enum QueryUrl {
 }
 
 export const enum MaxChar {
-  DESCRIPTION = 10,
+  DESCRIPTION = 20,
 }
 
 export const enum DebounceTime {

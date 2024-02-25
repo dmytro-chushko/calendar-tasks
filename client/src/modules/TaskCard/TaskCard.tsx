@@ -154,7 +154,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, ...props }) => {
           <TaskDescription>{modifiedDescription}</TaskDescription>
         )}
 
-        <ButtonContainer>
+        <ButtonContainer style={{ zIndex: '1' }}>
           {buttons.map(({ id, icon, handler }) => (
             <TaskButton
               key={id}

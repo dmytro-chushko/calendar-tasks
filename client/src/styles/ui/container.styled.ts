@@ -20,6 +20,8 @@ export interface I$FHContainer {
 }
 
 export const FullHeightContainer = styled.div<I$FHContainer>`
+  position: relative;
+
   height: ${({ $setHeight }) => ($setHeight ? $setHeight : '100svh')};
 `;
 

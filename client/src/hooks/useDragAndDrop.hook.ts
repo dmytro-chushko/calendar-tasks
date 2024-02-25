@@ -40,15 +40,18 @@ export const useDragAndDrop = () => {
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>, task: ITask) => {
     e.preventDefault();
+    e.stopPropagation();
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = 'transparent';
+      console.log('Drop');
     }
-
-    await reassignOrder({
-      draggableTaskId: id,
-      reassignedDate: task.assignedDate,
-      reassignedOrder: task.order,
-    });
+    if (task.id !== id) {
+      await reassignOrder({
+        draggableTaskId: id,
+        reassignedDate: task.assignedDate,
+        reassignedOrder: task.order,
+      });
+    }
   };
 
   const handleDragToDayCellOver = (e: DragEvent<HTMLDivElement>) => {
