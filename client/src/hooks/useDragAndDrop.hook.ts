@@ -19,7 +19,6 @@ export const useDragAndDrop = () => {
     useReassignOrderMutation();
 
   const handleDragTaskStart = (e: DragEvent<HTMLDivElement>, task: ITask) => {
-    console.log(task.id);
     setDraggableTaskId(task.id);
   };
 
