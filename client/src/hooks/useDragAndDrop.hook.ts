@@ -25,7 +25,6 @@ export const useDragAndDrop = () => {
   const handleDragTaskLeave = (e: DragEvent<HTMLDivElement>) => {
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = 'transparent';
-      console.log('Leave');
     }
   };
 
