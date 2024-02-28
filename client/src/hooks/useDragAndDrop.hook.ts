@@ -32,7 +32,6 @@ export const useDragAndDrop = () => {
     e.preventDefault();
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = color.accent;
-      console.log('Over');
     }
   };
 
