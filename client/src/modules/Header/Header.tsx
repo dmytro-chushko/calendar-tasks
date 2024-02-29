@@ -18,6 +18,7 @@ import { TextLabelModule } from '..';
 import { TextLabelConfig } from '../TextLabelModule/TextLabelConfig';
 import { CommonWrapper, HeaderContainer, LinkButton } from './Header.styled';
 import { ConfigTextLabelButton } from './components/ConfigTextLabelButton';
+import { Filter } from './components/Filter';
 
 interface IHeaderProps {}
 
@@ -39,6 +40,7 @@ export const Header: FC<IHeaderProps> = ({}) => {
           <FlexBox style={{ gap: size.general.m }}>
             <MonthOrWeekSwitcher />
             <ConfigTextLabelButton onClick={setIsTextLabelConfigOpen} />
+            <Filter />
           </FlexBox>
           <CurrentDateLabel />
           <ButtonWrapper>

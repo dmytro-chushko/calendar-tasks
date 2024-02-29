@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as Config } from 'src/assets/config.svg';
-import { SetState } from 'src/types';
 import { size } from 'src/styles/consts';
+import { SetState } from 'src/types';
 
 import { Button } from 'src/styles/ui/button.styled';
 
@@ -21,7 +21,11 @@ export const ConfigTextLabelButton: FC<IConfigTextLabelButtonProps> = ({
   return (
     <Button
       type="button"
-      style={{ gap: size.general.xxs }}
+      style={{
+        gap: size.general.xxs,
+        whiteSpace: 'nowrap',
+        padding: size.general.xs,
+      }}
       $height="2rem"
       $width="10rem"
       onClick={handleClick}

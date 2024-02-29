@@ -11,7 +11,8 @@
     "deleting": "Your {{entity}} successfully deleted"
   },
   "placeholder": {
-    "textLabelInput": "Input new text label"
+    "textLabelInput": "Input new text label",
+    "searchInput": "Input task name"
   },
   "task": "task",
   "tasks": "tasks",
