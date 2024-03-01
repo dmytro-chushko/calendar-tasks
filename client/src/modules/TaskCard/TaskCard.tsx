@@ -171,12 +171,14 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, ...props }) => {
         <DropDownContainer
           isShown={isColorLabelOpen}
           onOuterClick={handleColorLabelOuterClick}
+          openingDirection="up"
           exception="color-label-button"
         >
           <ColorLabelModule task={task} />
         </DropDownContainer>
         <DropDownContainer
           isShown={isTextLabelModalOpen}
+          openingDirection="up"
           onOuterClick={handleTextLabelClose}
           exception="text-label-button"
         >

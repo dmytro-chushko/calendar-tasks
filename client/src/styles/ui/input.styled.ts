@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { StylesConfig } from 'react-select';
+
+import { common, color } from '../consts';
 
 interface IStyledInput {
   $isError?: boolean;
@@ -19,3 +22,27 @@ export const ErrorContainer = styled.p`
 
   color: ${({ theme }) => theme.font.color.error};
 `;
+
+export const filterSelectStyles: StylesConfig = {
+  control: (styles, { isFocused }) => {
+    const boxShadow = isFocused
+      ? common.focusedSearchInputBorder
+      : common.searchInputBorder;
+    const borderColor = isFocused ? color.active : color.secondary;
+
+    return {
+      ...styles,
+      minHeight: '2rem',
+      height: '2rem',
+      flexWrap: 'nowrap',
+      boxShadow,
+      borderColor,
+      [':hover']: {
+        borderColor: color.active,
+        boxShadow: common.focusedSearchInputBorder,
+      },
+    };
+  },
+  valueContainer: styles => ({ ...styles, flexWrap: 'nowrap' }),
+  placeholder: styles => ({ ...styles, whiteSpace: 'nowrap' }),
+};

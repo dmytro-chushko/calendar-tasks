@@ -12,7 +12,9 @@
   },
   "placeholder": {
     "textLabelInput": "Input new text label",
-    "searchInput": "Input task name"
+    "searchInput": "Input task name",
+    "colorSelect": "Color label",
+    "textSelect": "Text label"
   },
   "task": "task",
   "tasks": "tasks",

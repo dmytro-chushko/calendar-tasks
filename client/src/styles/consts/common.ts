@@ -8,6 +8,7 @@ export const common = {
   errorInputBorder: `0 0.125rem 0.125rem -0.125rem ${color.error}`,
   searchInputBorder: `0 0 0 0.125rem ${color.secondary}`,
   errorSearchInputBorder: `0 0 0 0.125rem ${color.error}`,
+  focusedSearchInputBorder: `0 0 0 0.125rem ${color.active}`,
   labelBorder: `0 0 0 0.125rem ${color.secondary}`,
   loader: {
     color: '#8A8A8E',

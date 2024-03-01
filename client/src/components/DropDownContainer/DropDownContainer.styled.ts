@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface IContainer {
   $isShown: boolean;
+  $openingDirection: 'up' | 'down';
 }
 
 export const Container = styled.div<IContainer>`
@@ -20,7 +21,17 @@ export const Container = styled.div<IContainer>`
   opacity: ${({ $isShown }) => ($isShown ? 1 : 0)};
   transform: translateY(-100%)
     ${({ $isShown }) => ($isShown ? 'scaleY(1)' : 'scaleY(0)')};
-  transform-origin: center bottom;
+  transform-origin: center
+    ${({ $openingDirection }) => {
+      switch ($openingDirection) {
+        case 'up':
+          return 'bottom';
+        case 'down':
+          return 'top';
+        default:
+          return 'top';
+      }
+    }};
 
   transition: ${({ theme }) => theme.common.transition};
 `;
