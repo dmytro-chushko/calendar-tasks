@@ -13,11 +13,11 @@ import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiName, AppRoute } from 'src/utils/consts';
 import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { ReassignDateDto } from './dto/reassign-date.dto';
+import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
 import { TaskService } from './task.service';
-import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
-import { ReassignDateDto } from './dto/reassign-date.dto';
 
 @ApiTags(ApiName.TASK)
 @Controller(AppRoute.TASK)
@@ -42,8 +42,10 @@ export class TaskController {
   @ApiOperation({ summary: 'Get all tasks' })
   @ApiResponse({ status: 200, type: [Task] })
   @Get()
-  findAll(): Promise<Task[]> {
-    return this.taskService.findAll();
+  findAll(@Query('filter-values') filterValues: string): Promise<Task[]> {
+    const dto = JSON.parse(filterValues);
+
+    return this.taskService.findAll(dto);
   }
 
   // @Get(':id')

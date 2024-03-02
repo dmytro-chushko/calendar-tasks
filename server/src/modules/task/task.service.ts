@@ -1,12 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  Between,
+  FindManyOptions,
+  ILike,
+  In,
+  MoreThan,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import { checkAndReturnEntity } from 'src/utils/helpers/check-and-return';
 import { ColorLabelService } from '../color-label/color-label.service';
 import { TextLabelService } from '../text-label/text-label.service';
 import { AssignLabelDto } from './dto/assign-label.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { FilterValuesDto } from './dto/filter-values.dto';
 import { ReassignDateDto } from './dto/reassign-date.dto';
 import { ReassignedOrderAndDateDto } from './dto/reassigned-order-and-date.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -32,8 +41,8 @@ export class TaskService {
     return await this.taskRepository.save(newTask);
   }
 
-  async findAll(): Promise<Task[]> {
-    return await this.taskRepository.find({
+  async findAll(dto: FilterValuesDto): Promise<Task[]> {
+    let options: FindManyOptions<Task> = {
       order: { order: 'DESC' },
       relations: {
         textLabels: true,
@@ -49,7 +58,40 @@ export class TaskService {
           color: true,
         },
       },
-    });
+    };
+
+    if (dto.taskName) {
+      options = {
+        ...options,
+        where: { description: ILike(`%${dto.taskName}%`) },
+      };
+    }
+
+    if (dto.colorLabelIds.length > 0) {
+      options = {
+        ...options,
+        where: {
+          ...options.where,
+          colorLabels: {
+            id: In(dto.colorLabelIds),
+          },
+        },
+      };
+    }
+
+    if (dto.textLabelIds.length > 0) {
+      options = {
+        ...options,
+        where: {
+          ...options.where,
+          textLabels: {
+            id: In(dto.textLabelIds),
+          },
+        },
+      };
+    }
+
+    return await this.taskRepository.find(options);
   }
 
   async findAllByDate(date: string): Promise<Task[]> {
