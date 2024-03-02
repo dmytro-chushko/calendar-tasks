@@ -5,6 +5,7 @@ import { useLoader } from 'src/hooks/useLoader.hook';
 import { TaskCard } from 'src/modules';
 import { useGetAllTasksQuery } from 'src/redux/api/task.api';
 import { isTheSameDate } from 'src/utils/helpers';
+import { useGetFilterValues } from 'src/redux/hooks';
 
 import { useDragAndDrop } from 'src/hooks/useDragAndDrop.hook';
 import { DayCover, FullHeightContainer } from 'src/styles/ui/container.styled';
@@ -17,7 +18,10 @@ interface IDateColumnProps {
 export const DateColumn: FC<IDateColumnProps> = ({ date }) => {
   const columnRef = useRef<HTMLDivElement>(null);
   const columnHeight = useElementHeight(columnRef);
-  const { data: tasks, isLoading } = useGetAllTasksQuery();
+  const filterValues = useGetFilterValues();
+  const { data: tasks, isLoading } = useGetAllTasksQuery(
+    JSON.stringify(filterValues),
+  );
   const handler = useDragAndDrop();
 
   const filteredTasks = tasks

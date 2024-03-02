@@ -15,3 +15,4 @@ export type * from './SetState';
 export type * from './IReassignDate';
 export type * from './IReassignOrder';
 export type * from './IFilterForm';
+export type * from './IFilterValues';

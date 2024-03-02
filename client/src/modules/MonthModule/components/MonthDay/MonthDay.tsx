@@ -5,7 +5,7 @@ import { ReactComponent as Plus } from 'src/assets/plus.svg';
 import { Holidays } from 'src/components';
 import { useMonth } from 'src/hooks';
 import { useLoader } from 'src/hooks/useLoader.hook';
-import { useGetCurrentDate } from 'src/redux/hooks';
+import { useGetCurrentDate, useGetFilterValues } from 'src/redux/hooks';
 
 import { useDragAndDrop } from 'src/hooks/useDragAndDrop.hook';
 import { TaskCard } from 'src/modules';
@@ -29,9 +29,13 @@ interface IMonthDayProps {
 
 export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
   const { t } = useTranslation();
+  const filterValues = useGetFilterValues();
+  // console.log(filterValues);
   const { month } = useGetCurrentDate();
   const { formatFirstOrLastMonthDate } = useMonth();
-  const { data: tasks, isLoading: isTasksFetching } = useGetAllTasksQuery();
+  const { data: tasks, isLoading: isTasksFetching } = useGetAllTasksQuery(
+    JSON.stringify(filterValues),
+  );
   const [createTask, { isLoading: isTaskCreating }] = useCreateTaskMutation();
   const {
     handleDragTaskStart,

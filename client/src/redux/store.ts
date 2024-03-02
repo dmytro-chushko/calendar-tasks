@@ -8,12 +8,14 @@ import { date } from './reducers/current-date.reducer';
 import { loaderStatus } from './reducers/is-loading.reducer';
 import { colorLabelApi } from './api/colorLabel.api';
 import { draggableTaskId } from './reducers/draggable-task-id.reducer';
+import { filterValues } from './reducers/filter-values.reducer';
 
 export const store = configureStore({
   reducer: {
     loaderStatus: loaderStatus.reducer,
     date: date.reducer,
     draggableTaskId: draggableTaskId.reducer,
+    filterValues: filterValues.reducer,
     [holidayApi.reducerPath]: holidayApi.reducer,
     [taskApi.reducerPath]: taskApi.reducer,
     [textLabelApi.reducerPath]: textLabelApi.reducer,

@@ -11,6 +11,7 @@ export const enum ReducerPath {
   TASK_API = 'task-api',
   TEXT_LABEL_API = 'text-label-api',
   COLOR_LABEL_API = 'color-label-api',
+  FILTER_VALUES = 'filter-values',
 }
 
 export const enum HolidayApi {

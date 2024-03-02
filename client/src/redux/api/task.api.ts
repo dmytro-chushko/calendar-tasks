@@ -16,8 +16,10 @@ export const taskApi = createApi({
   baseQuery: baseQuery(import.meta.env.VITE_BASE_URL, QueryUrl.TASK),
   tagTypes: ['Task'],
   endpoints: builder => ({
-    getAllTasks: builder.query<ITask[], void>({
-      query: () => ({ url: '' }),
+    getAllTasks: builder.query<ITask[], string>({
+      query: filterValues => ({
+        url: `/?filter-values=${filterValues}`,
+      }),
       providesTags: ['Task'],
     }),
     createTask: builder.mutation<ITask, ICreateTask>({
