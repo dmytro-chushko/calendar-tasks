@@ -40,7 +40,6 @@ export const useDragAndDrop = () => {
     e.stopPropagation();
     if ((e.target as HTMLDivElement).dataset.draggable) {
       (e.target as HTMLDivElement).style.background = 'transparent';
-      console.log('Drop');
     }
     if (task.id !== id) {
       await reassignOrder({
