@@ -30,7 +30,6 @@ interface IMonthDayProps {
 export const MonthDay: FC<IMonthDayProps> = ({ date }) => {
   const { t } = useTranslation();
   const filterValues = useGetFilterValues();
-  // console.log(filterValues);
   const { month } = useGetCurrentDate();
   const { formatFirstOrLastMonthDate } = useMonth();
   const { data: tasks, isLoading: isTasksFetching } = useGetAllTasksQuery(
