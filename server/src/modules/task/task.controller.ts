@@ -48,11 +48,6 @@ export class TaskController {
     return this.taskService.findAll(dto);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.taskService.findOne(+id);
-  // }
-
   @ApiOperation({ summary: 'Update task data' })
   @ApiResponse({ status: 200, type: Task })
   @Patch(AppRoute.PARAM_ID)

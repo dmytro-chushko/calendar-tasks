@@ -98,7 +98,7 @@ Or you can use these ones if are using docker-compose running approach:
 
 ```java-script
 PORT=8090
-DB_TYPE =postgres
+DB_TYPE=postgres
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
 POSTGRES_USER=postgres
